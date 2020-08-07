@@ -1,0 +1,25 @@
+<!--@subject {{var store.getFrontendName()}}: Fwd: Helpmate (ticket# {{var ticket_number}}) - Notification | Subject {{var ticket_title}}@-->
+<!--@vars {
+"var customer_name":"Customer name",
+"var ticket_title":"Ticket title",
+"var ticket_number":"Ticket Number"
+} @-->
+
+{{template config_path="design/email/header_template"}}
+<table>
+    <tr>
+        <td valign="top">
+            <p class="greeting"><strong>{{trans "Dear"}} {{var customer_name|escape}}, </strong></p>
+            <p>{{trans "Your Support Request"}} "{{var ticket_title|escape}}" (ticket# {{var ticket_number}}) {{trans "has been successfully created and is now being routed to an appropriate department."}}</p>
+            <p>{{trans "You also can see ticket status here"}} <a href="{{store url="helpdesk/ticket/view"}}number/{{var ticket_number}}" style="color:#1E7EC8;">#{{var ticket_number}}</a></p>
+            <p>{{store url="helpdesk/ticket/view"}}number/{{var ticket_number}}</p>
+        </td>
+    </tr>
+    <tr>
+        <td valign="top">
+            <p>{{trans "Please note, this email is a one-way notification that your support request has been created. All communication with the support staff is handled directly online through Helpdesk interface."}}</p>
+            <p>{{trans "Thank you again"}}, <strong>{{var store.getFrontendName()}}</strong></p>
+        </td>
+    </tr>
+</table>
+{{template config_path="design/email/footer_template"}}

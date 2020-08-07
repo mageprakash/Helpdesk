@@ -1,0 +1,39 @@
+<?php
+    $ticket = $block->getCurrentTicket();
+?>
+<?php
+    $property = [
+        'Department' => $ticket->getDepartmentName(),
+        'Status'     => $ticket->getStatusName(),
+        'Priority'   => $ticket->getPriorityLabel(),
+        // 'Support Rating' => $rate
+    ];
+?>
+<div class="page-title-wrapper">
+    <h1 class="page-title">
+        <span class="base" data-ui-id="page-title-wrapper"><?= $block->escapeHtml(__(
+            'Ticket #%1 - "%2"',
+            $ticket->getNumber(),
+            trim($ticket->getTitle())
+        ))
+    ?></span>
+    </h1>
+    <span class="order-status"><?= $block->escapeHtml(__($ticket->getStatusName())) ?></span>
+    <div class="order-date">
+        <?= /* @noEscape */ __('<span class="label">Ticket Date:</span> %1', '<date>' . $block->formatDate($ticket->getCreatedAt(), \IntlDateFormatter::LONG) . '</date>') ?>
+    </div>
+</div>
+<div class="block block-helpdesk-ticket-view">
+    <div class="block-content">
+        <div class="ticket-info">
+            <dl>
+                <?php foreach ($property as $label => $value) : ?>
+                    <dt class="label"><?= $block->escapeHtml(__($label)) ?></dt>
+                    <dd class="value"><?= $block->escapeHtml(__($value)) ?></dd>
+                <?php endforeach;?>
+            </dl>
+        </div>
+        <?= /* @noEscape */ $block->getChildHtml('messages'); ?>
+        <?= /* @noEscape */ $block->getChildHtml('new_message'); ?>
+    </div>
+</div>

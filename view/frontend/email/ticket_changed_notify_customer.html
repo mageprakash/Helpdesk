@@ -1,0 +1,28 @@
+<!--@subject {{var store.getFrontendName()}}: Re:(ticket# {{var ticket_number}}) {{var ticket_title}}@-->
+<!--@vars {
+"var customer_name":"Customer name",
+"var ticket_title":"Ticket title",
+"var ticket":"Ticket",
+"var ticket_number":"Ticket Number",
+"var message_text":"Message Text"
+} @-->
+<style type="text/css">
+    {{css file="MagePrakash_Helpdesk::css/ticket/messages.css"}}
+</style>
+{{template config_path="design/email/header_template"}}
+<table>
+    <tr>
+        <td valign="top">
+            <p class="greeting"><strong>{{trans "Dear"}} {{var customer_name|escape}}, </strong></p>
+            <p>{{trans "You ticket"}} (<a href="{{store url="helpdesk/ticket/view"}}number/{{var ticket_number}}" style="color:#1E7EC8;">{{var ticket_number}}</a>) {{trans "has been updated"}}. {{trans "Reply to this email or click the link"}} : <a href="{{store url="helpdesk/ticket/view"}}number/{{var ticket_number}}" style="color:#1E7EC8;">{{var ticket_title|escape}}</a>.</p>
+
+            {{block class='MagePrakash\\Helpdesk\\Block\\Ticket\\View\\Message\\Listing' area='frontend' template='MagePrakash_Helpdesk::ticket/view/message/listing.phtml' current_ticket=$ticket hide_avatar=1}}
+        </td>
+    </tr>
+    <tr>
+        <td valign="top">
+            <p>{{trans "Thank you again"}}, <strong>{{var store.getFrontendName()}}</strong></p>
+        </td>
+    </tr>
+</table>
+{{template config_path="design/email/footer_template"}}

@@ -1,0 +1,86 @@
+<?php
+
+    if (!$block->getMessages()) {
+        return;
+    }
+
+    $helper = $block->getConfigHelper();
+    $isShowAvatar = !$block->getData('hide_avatar');
+?>
+<div class="messages-container">
+    <ul class="messages-list">
+        <?php
+        $previousMessage = false;
+        foreach ($block->getMessages() as $message) : 
+            ?>
+       
+        <li class="messages-list-message">
+            <div>
+                <div class="message-main-level">
+                 
+                    <div class="message-box ">
+                        <div class="message-head">
+                            <span class="message-author">
+                                
+                            </span>
+                            <span class="message-created_at">
+                                <date>
+                                    <?= $block->escapeHtml($helper->getTimeAgo($message->getCreatedAt())) ?>
+                                </date>
+                            </span>
+                            <div class="message-head-rigth">
+                                <span class="message-status"><?= $block->escapeHtml(__($message->getStatusName()))?></span>
+                                <span class="message-priority"><?= $block->escapeHtml(__($message->getPriorityLabel()))?></span>
+                                <span class="message-department"><?= $block->escapeHtml(__($message->getDepartmentName()))?></span>
+                            </div>
+                        </div>
+                        <div class="message-content">
+                            <span class="message-text">
+                                <!-- <pre><code><?= $block->escapeHtml($message->getText())?></code></pre> -->
+                                <?= /* @noEscape */ nl2br($block->escapeHtml($message->getText()))?>
+                            </span>
+                            
+                            <ul class="message-files">
+                                <?php foreach (explode(",", $message->getFilename()) as $data) :?>
+                                    <li>
+                                        <a href="<?= $data ?>"><?= $data ?></a>
+                                    </li>
+                                <?php endforeach ?>
+                            </ul>
+
+                            <ul class="message-comments">
+                                <?php $commentStatus = $helper->getComment('Status', $message->getStatusName(), $previousMessage ? $previousMessage->getStatusName() : null);?>
+                                <?php if (!empty($commentStatus)) : ?>
+                                <li>
+                                    <span class="message-comment-status">
+                                        <i><small><?= $block->escapeHtml($commentStatus) ?></small></i>
+                                    </span>
+                                </li>
+                                <?php endif;?>
+                                <?php $commentPriority = $helper->getComment('Priority', $message->getPriorityLabel(), $previousMessage ? $previousMessage->getPriorityLabel() : null);?>
+                                <?php if (!empty($commentPriority)) : ?>
+                                <li>
+                                    <span class="message-comment-priority">
+                                        <i><small><?= $block->escapeHtml($commentPriority) ?></small></i>
+                                    </span>
+                                </li>
+                                <?php endif;?>
+                                <?php $commentDepartment = $helper->getComment('Department', $message->getDepartmentName(), $previousMessage ? $previousMessage->getDepartmentName() : null);?>
+                                <?php if (!empty($commentDepartment)) : ?>
+                                <li>
+                                    <span class="message-comment-department">
+                                        <i><small><?= $block->escapeHtml($commentDepartment) ?></small></i>
+                                    </span>
+                                </li>
+                                <?php endif;?>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </li>
+    <?php
+        $previousMessage = $message;
+        endforeach;?>
+    </ul>
+</div>

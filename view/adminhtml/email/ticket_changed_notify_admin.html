@@ -1,0 +1,28 @@
+<!--@subject {{var store.getFrontendName()}}: Ticket #{{var ticket_number}} update by {{var customer_name|escape}} (ticket# {{var ticket_number}})@-->
+<!--@vars {
+"var customer_name":"Customer name",
+"var customer_email":"Customer email",
+"var ticket_url":"Ticket Url",
+"var ticket_title":"Ticket title",
+"var ticket_number":"Ticket Number",
+"var ticket_message":"Ticket Message"
+} @-->
+<table>
+    <tr class="email-information">
+        <td>
+            <table class="message-info">
+                <tr>
+                    <td>
+                        <p>{{trans "Username"}} {{var customer_name|escape}} {{trans "added/updated ticket"}} # {{var ticket_number|escape}}</p>
+                        <p>{{trans "Customer Name"}} : {{var customer_name|escape}}</p>
+                        <p>{{trans "E-mail"}} : {{var customer_email|escape}}</p>
+                        <p>{{trans "Ticket Title"}} : {{var ticket_title|escape}}</p>
+                        <p>{{trans "Ticket Number"}} : {{var ticket_number}}</p>
+                        <p>{{trans "Message"}} : {{var ticket_message|escape}}</p>
+                        {{if ticket_url}}<p>{{trans "Please answer or modify support request at"}} : <a href="{{var ticket_url}}">{{var ticket_title|escape}}</a></p>{{/if}}
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>

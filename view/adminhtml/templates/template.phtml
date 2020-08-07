@@ -1,0 +1,9 @@
+	
+<?php 
+$ticketMessages = $block->getTicketMessages();
+
+foreach ($ticketMessages->getItems() as $data) {
+	echo $data->getText();
+	echo "<br/>";
+}
+?>

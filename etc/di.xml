@@ -1,0 +1,85 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+	<preference for="MagePrakash\Helpdesk\Api\DepartmentRepositoryInterface" type="MagePrakash\Helpdesk\Model\DepartmentRepository"/>
+	<preference for="MagePrakash\Helpdesk\Api\Data\DepartmentInterface" type="MagePrakash\Helpdesk\Model\Data\Department"/>
+	<preference for="MagePrakash\Helpdesk\Api\Data\DepartmentSearchResultsInterface" type="Magento\Framework\Api\SearchResults"/>
+	<virtualType name="MagePrakash\Helpdesk\Model\ResourceModel\Department\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+		<arguments>
+			<argument name="mainTable" xsi:type="string">mageprakash_helpdesk_department</argument>
+			<argument name="resourceModel" xsi:type="string">MagePrakash\Helpdesk\Model\ResourceModel\Department\Collection</argument>
+		</arguments>
+	</virtualType>
+	<type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+		<arguments>
+			<argument name="collections" xsi:type="array">
+				<item name="mageprakash_helpdesk_department_listing_data_source" xsi:type="string">MagePrakash\Helpdesk\Model\ResourceModel\Department\Grid\Collection</item>
+				<item name="mageprakash_helpdesk_status_listing_data_source" xsi:type="string">MagePrakash\Helpdesk\Model\ResourceModel\Status\Grid\Collection</item>
+				<item name="mageprakash_helpdesk_ticket_listing_data_source" xsi:type="string">MagePrakash\Helpdesk\Model\ResourceModel\Ticket\Grid\Collection</item>
+			</argument>
+		</arguments>
+	</type>
+
+	<!-- <preference for="MagePrakash\Helpdesk\Api\DepartmentUserRepositoryInterface" type="MagePrakash\Helpdesk\Model\DepartmentUserRepository"/> -->
+	<preference for="MagePrakash\Helpdesk\Api\Data\DepartmentUserInterface" type="MagePrakash\Helpdesk\Model\Data\DepartmentUser"/>
+	<preference for="MagePrakash\Helpdesk\Api\Data\DepartmentUserSearchResultsInterface" type="Magento\Framework\Api\SearchResults"/>
+	
+	<!-- <preference for="MagePrakash\Helpdesk\Api\StatusRepositoryInterface" type="MagePrakash\Helpdesk\Model\StatusRepository"/> -->
+	<preference for="MagePrakash\Helpdesk\Api\Data\StatusInterface" type="MagePrakash\Helpdesk\Model\Data\Status"/>
+	<preference for="MagePrakash\Helpdesk\Api\Data\StatusSearchResultsInterface" type="Magento\Framework\Api\SearchResults"/>
+	<virtualType name="MagePrakash\Helpdesk\Model\ResourceModel\Status\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+		<arguments>
+			<argument name="mainTable" xsi:type="string">mageprakash_helpdesk_status</argument>
+			<argument name="resourceModel" xsi:type="string">MagePrakash\Helpdesk\Model\ResourceModel\Status\Collection</argument>
+		</arguments>
+	</virtualType>
+
+	<preference for="MagePrakash\Helpdesk\Api\TicketRepositoryInterface" type="MagePrakash\Helpdesk\Model\TicketRepository"/>
+	<preference for="MagePrakash\Helpdesk\Api\Data\TicketInterface" type="MagePrakash\Helpdesk\Model\Data\Ticket"/>
+	<preference for="MagePrakash\Helpdesk\Api\Data\TicketSearchResultsInterface" type="Magento\Framework\Api\SearchResults"/>
+	<virtualType name="MagePrakash\Helpdesk\Model\ResourceModel\Ticket\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+		<arguments>
+			<argument name="mainTable" xsi:type="string">mageprakash_helpdesk_ticket</argument>
+			<argument name="resourceModel" xsi:type="string">MagePrakash\Helpdesk\Model\ResourceModel\Ticket\Collection</argument>
+		</arguments>
+	</virtualType>
+
+	<preference for="MagePrakash\Helpdesk\Api\TicketMessageRepositoryInterface" type="MagePrakash\Helpdesk\Model\TicketMessageRepository"/>
+	<preference for="MagePrakash\Helpdesk\Api\Data\TicketMessageInterface" type="MagePrakash\Helpdesk\Model\Data\TicketMessage"/>
+	<preference for="MagePrakash\Helpdesk\Api\Data\TicketMessageSearchResultsInterface" type="Magento\Framework\Api\SearchResults"/>
+
+	
+	<!-- <preference for="MagePrakash\Helpdesk\Api\PriorityRepositoryInterface" type="MagePrakash\Helpdesk\Model\PriorityRepository"/> -->
+	<preference for="MagePrakash\Helpdesk\Api\Data\PriorityInterface" type="MagePrakash\Helpdesk\Model\Data\Priority"/>
+	<preference for="MagePrakash\Helpdesk\Api\Data\PrioritySearchResultsInterface" type="Magento\Framework\Api\SearchResults"/>
+	<virtualType name="MagePrakash\Helpdesk\Model\ResourceModel\Priority\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+		<arguments>
+			<argument name="mainTable" xsi:type="string">mageprakash_helpdesk_priority</argument>
+			<argument name="resourceModel" xsi:type="string">MagePrakash\Helpdesk\Model\ResourceModel\Priority\Collection</argument>
+		</arguments>
+	</virtualType>
+	<type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+		<arguments>
+			<argument name="collections" xsi:type="array">
+				<item name="mageprakash_helpdesk_priority_listing_data_source" xsi:type="string">MagePrakash\Helpdesk\Model\ResourceModel\Priority\Grid\Collection</item>
+			</argument>
+		</arguments>
+	</type>
+
+	<preference for="MagePrakash\Helpdesk\Api\ReasonRepositoryInterface" type="MagePrakash\Helpdesk\Model\ReasonRepository"/>
+	<preference for="MagePrakash\Helpdesk\Api\Data\ReasonInterface" type="MagePrakash\Helpdesk\Model\Data\Reason"/>
+	<preference for="MagePrakash\Helpdesk\Api\Data\ReasonSearchResultsInterface" type="Magento\Framework\Api\SearchResults"/>
+	<virtualType name="MagePrakash\Helpdesk\Model\ResourceModel\Reason\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+		<arguments>
+			<argument name="mainTable" xsi:type="string">mageprakash_helpdesk_reason</argument>
+			<argument name="resourceModel" xsi:type="string">MagePrakash\Helpdesk\Model\ResourceModel\Reason\Collection</argument>
+		</arguments>
+	</virtualType>
+	<type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+		<arguments>
+			<argument name="collections" xsi:type="array">
+				<item name="mageprakash_helpdesk_reason_listing_data_source" xsi:type="string">MagePrakash\Helpdesk\Model\ResourceModel\Reason\Grid\Collection</item>
+			</argument>
+		</arguments>
+	</type>
+</config>

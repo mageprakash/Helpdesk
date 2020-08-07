@@ -1,0 +1,153 @@
+<?xml version="1.0" ?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+<!-- 	<route method="POST" url="/V1/mageprakash-helpdesk/department">
+		<service class="MagePrakash\Helpdesk\Api\DepartmentRepositoryInterface" method="save"/>
+		<resources>
+			<resource ref="MagePrakash_Helpdesk::department_save"/>
+		</resources>
+	</route>
+	<route method="GET" url="/V1/mageprakash-helpdesk/department/search">
+		<service class="MagePrakash\Helpdesk\Api\DepartmentRepositoryInterface" method="getList"/>
+		<resources>
+			<resource ref="MagePrakash_Helpdesk::department_view"/>
+		</resources>
+	</route>
+	<route method="GET" url="/V1/mageprakash-helpdesk/department/:departmentId">
+		<service class="MagePrakash\Helpdesk\Api\DepartmentRepositoryInterface" method="getById"/>
+		<resources>
+			<resource ref="MagePrakash_Helpdesk::department_view"/>
+		</resources>
+	</route>
+	<route method="PUT" url="/V1/mageprakash-helpdesk/department/:departmentId">
+		<service class="MagePrakash\Helpdesk\Api\DepartmentRepositoryInterface" method="save"/>
+		<resources>
+			<resource ref="MagePrakash_Helpdesk::department_update"/>
+		</resources>
+	</route>
+	<route method="DELETE" url="/V1/mageprakash-helpdesk/department/:departmentId">
+		<service class="MagePrakash\Helpdesk\Api\DepartmentRepositoryInterface" method="deleteById"/>
+		<resources>
+			<resource ref="MagePrakash_Helpdesk::department_delete"/>
+		</resources>
+	</route>
+	<route method="POST" url="/V1/mageprakash-helpdesk/department_user">
+		<service class="MagePrakash\Helpdesk\Api\DepartmentUserRepositoryInterface" method="save"/>
+		<resources>
+			<resource ref="MagePrakash_Helpdesk::department_user_save"/>
+		</resources>
+	</route>
+	<route method="GET" url="/V1/mageprakash-helpdesk/department_user/search">
+		<service class="MagePrakash\Helpdesk\Api\DepartmentUserRepositoryInterface" method="getList"/>
+		<resources>
+			<resource ref="MagePrakash_Helpdesk::department_user_view"/>
+		</resources>
+	</route>
+	<route method="GET" url="/V1/mageprakash-helpdesk/department_user/:departmentUserId">
+		<service class="MagePrakash\Helpdesk\Api\DepartmentUserRepositoryInterface" method="getById"/>
+		<resources>
+			<resource ref="MagePrakash_Helpdesk::department_user_view"/>
+		</resources>
+	</route>
+	<route method="PUT" url="/V1/mageprakash-helpdesk/department_user/:departmentUserId">
+		<service class="MagePrakash\Helpdesk\Api\DepartmentUserRepositoryInterface" method="save"/>
+		<resources>
+			<resource ref="MagePrakash_Helpdesk::department_user_update"/>
+		</resources>
+	</route>
+	<route method="DELETE" url="/V1/mageprakash-helpdesk/department_user/:departmentUserId">
+		<service class="MagePrakash\Helpdesk\Api\DepartmentUserRepositoryInterface" method="deleteById"/>
+		<resources>
+			<resource ref="MagePrakash_Helpdesk::department_user_delete"/>
+		</resources>
+	</route>
+	<route method="POST" url="/V1/mageprakash-helpdesk/status">
+		<service class="MagePrakash\Helpdesk\Api\StatusRepositoryInterface" method="save"/>
+		<resources>
+			<resource ref="MagePrakash_Helpdesk::status_save"/>
+		</resources>
+	</route>
+	<route method="GET" url="/V1/mageprakash-helpdesk/status/search">
+		<service class="MagePrakash\Helpdesk\Api\StatusRepositoryInterface" method="getList"/>
+		<resources>
+			<resource ref="MagePrakash_Helpdesk::status_view"/>
+		</resources>
+	</route>
+	<route method="GET" url="/V1/mageprakash-helpdesk/status/:statusId">
+		<service class="MagePrakash\Helpdesk\Api\StatusRepositoryInterface" method="getById"/>
+		<resources>
+			<resource ref="MagePrakash_Helpdesk::status_view"/>
+		</resources>
+	</route>
+	<route method="PUT" url="/V1/mageprakash-helpdesk/status/:statusId">
+		<service class="MagePrakash\Helpdesk\Api\StatusRepositoryInterface" method="save"/>
+		<resources>
+			<resource ref="MagePrakash_Helpdesk::status_update"/>
+		</resources>
+	</route>
+	<route method="DELETE" url="/V1/mageprakash-helpdesk/status/:statusId">
+		<service class="MagePrakash\Helpdesk\Api\StatusRepositoryInterface" method="deleteById"/>
+		<resources>
+			<resource ref="MagePrakash_Helpdesk::status_delete"/>
+		</resources>
+	</route>
+	<route method="POST" url="/V1/mageprakash-helpdesk/ticket">
+		<service class="MagePrakash\Helpdesk\Api\TicketRepositoryInterface" method="save"/>
+		<resources>
+			<resource ref="MagePrakash_Helpdesk::ticket_save"/>
+		</resources>
+	</route>
+	<route method="GET" url="/V1/mageprakash-helpdesk/ticket/search">
+		<service class="MagePrakash\Helpdesk\Api\TicketRepositoryInterface" method="getList"/>
+		<resources>
+			<resource ref="MagePrakash_Helpdesk::ticket_view"/>
+		</resources>
+	</route>
+	<route method="GET" url="/V1/mageprakash-helpdesk/ticket/:ticketId">
+		<service class="MagePrakash\Helpdesk\Api\TicketRepositoryInterface" method="getById"/>
+		<resources>
+			<resource ref="MagePrakash_Helpdesk::ticket_view"/>
+		</resources>
+	</route>
+	<route method="PUT" url="/V1/mageprakash-helpdesk/ticket/:ticketId">
+		<service class="MagePrakash\Helpdesk\Api\TicketRepositoryInterface" method="save"/>
+		<resources>
+			<resource ref="MagePrakash_Helpdesk::ticket_update"/>
+		</resources>
+	</route>
+	<route method="DELETE" url="/V1/mageprakash-helpdesk/ticket/:ticketId">
+		<service class="MagePrakash\Helpdesk\Api\TicketRepositoryInterface" method="deleteById"/>
+		<resources>
+			<resource ref="MagePrakash_Helpdesk::ticket_delete"/>
+		</resources>
+	</route>
+	<route method="POST" url="/V1/mageprakash-helpdesk/ticket_message">
+		<service class="MagePrakash\Helpdesk\Api\TicketMessageRepositoryInterface" method="save"/>
+		<resources>
+			<resource ref="MagePrakash_Helpdesk::ticket_message_save"/>
+		</resources>
+	</route>
+	<route method="GET" url="/V1/mageprakash-helpdesk/ticket_message/search">
+		<service class="MagePrakash\Helpdesk\Api\TicketMessageRepositoryInterface" method="getList"/>
+		<resources>
+			<resource ref="MagePrakash_Helpdesk::ticket_message_view"/>
+		</resources>
+	</route>
+	<route method="GET" url="/V1/mageprakash-helpdesk/ticket_message/:ticketMessageId">
+		<service class="MagePrakash\Helpdesk\Api\TicketMessageRepositoryInterface" method="getById"/>
+		<resources>
+			<resource ref="MagePrakash_Helpdesk::ticket_message_view"/>
+		</resources>
+	</route>
+	<route method="PUT" url="/V1/mageprakash-helpdesk/ticket_message/:ticketMessageId">
+		<service class="MagePrakash\Helpdesk\Api\TicketMessageRepositoryInterface" method="save"/>
+		<resources>
+			<resource ref="MagePrakash_Helpdesk::ticket_message_update"/>
+		</resources>
+	</route>
+	<route method="DELETE" url="/V1/mageprakash-helpdesk/ticket_message/:ticketMessageId">
+		<service class="MagePrakash\Helpdesk\Api\TicketMessageRepositoryInterface" method="deleteById"/>
+		<resources>
+			<resource ref="MagePrakash_Helpdesk::ticket_message_delete"/>
+		</resources>
+	</route> -->
+</routes>

@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Email:etc/email_templates.xsd">
+    <template id="mageprakash_helpdesk_ticket_create_notify_customer_email_template" label="New ticket created (customer notification)" file="ticket_create_notify_customer.html" type="html" module="MagePrakash_Helpdesk" area="frontend"/>
+    <template id="mageprakash_helpdesk_ticket_changed_notify_customer_email_template" label="Ticket Answered/Changed (customer notification)" file="ticket_changed_notify_customer.html" type="html" module="MagePrakash_Helpdesk" area="frontend"/>
+    <template id="mageprakash_helpdesk_ticket_changed_notify_admin_email_template" label="Ticket New Activity (admin notification)" file="ticket_changed_notify_admin.html" type="html" module="MagePrakash_Helpdesk" area="adminhtml"/>
+</config>

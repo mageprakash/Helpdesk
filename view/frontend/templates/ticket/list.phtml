@@ -1,0 +1,54 @@
+<?php $_tickets = $block->getTickets(); ?>
+<?= $block->getChildHtml('info') ?>
+<?php if ($_tickets && count($_tickets)): ?>
+    <div class="table-wrapper orders-history">
+        <table class="data table table-order-items history" id="my-orders-table">
+            <caption class="table-caption"><?= $block->escapeHtml(__('Tickets')) ?></caption>
+            <thead>
+                <tr>
+                    <th scope="col" class="col id"><?= $block->escapeHtml(__('Number #')) ?></th>
+                    <th scope="col" class="col title"><?= $block->escapeHtml(__('Title')) ?></th>
+                    <th scope="col" class="col department"><?= $block->escapeHtml(__('Department')) ?></th>
+                    <th scope="col" class="col priority"><?= $block->escapeHtml(__('Priority')) ?></th>
+                    <th scope="col" class="col status"><?= $block->escapeHtml(__('Status')) ?></th>
+                    <th scope="col" class="col date"><?= $block->escapeHtml(__('Date')) ?></th>
+                    <th scope="col" class="col actions"><?= $block->escapeHtml(__('Action')) ?></th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($_tickets as $_ticket): ?>
+                    <tr>
+                        <td data-th="<?= $block->escapeHtml(__('Ticket #')) ?>" class="col id">
+                            <?= $block->escapeHtml($_ticket->getNumber()) ?>
+                        </td>
+                        <td data-th="<?= $block->escapeHtml(__('Title')) ?>" class="col title">
+                            <?= $block->escapeHtml($_ticket->getTitle()) ?>
+                        </td>
+                        <td data-th="<?= $block->escapeHtml(__('Department')) ?>" class="col department">
+                            <?= $block->escapeHtml(__($_ticket->getDepartmentName())) ?>
+                        </td>
+                        <td data-th="<?= $block->escapeHtml(__('Priority')) ?>" class="col priority">
+                            <?= $block->escapeHtml(__($_ticket->getPriorityLabel())) ?>
+                        </td>
+                        <td data-th="<?= $block->escapeHtml(__('Status')) ?>" class="col status">
+                            <?= $block->escapeHtml(__($_ticket->getStatusName())) ?>
+                        </td>
+                        <td data-th="<?= $block->escapeHtml(__('Date')) ?>" class="col date">
+                            <?= $block->escapeHtml($block->formatDate($_ticket->getCreatedAt())) ?>
+                        </td>
+                        <td data-th="<?= $block->escapeHtml(__('Actions')) ?>" class="col actions">
+                            <a href="<?= $block->escapeUrl($block->getViewUrl($_ticket)) ?>" class="action view">
+                                <span><?= $block->escapeHtml(__('View')) ?></span>
+                            </a>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+    <?php if ($block->getPagerHtml()): ?>
+        <div class="order-products-toolbar toolbar bottom"><?= $block->getPagerHtml() ?></div>
+    <?php endif ?>
+<?php else: ?>
+    <div class="message info empty"><span><?= $block->escapeHtml(__('You have placed no tickets.')) ?></span></div>
+<?php endif ?>

@@ -1,0 +1,139 @@
+<?php
+    $isLoggedIn = $block->isCustomerLoggedIn();
+    $configHelper = $block->getConfigHelper();
+
+    $selectedDepartment = $block->getRequest()->getParam('department_id');
+    if (empty($selectedDepartment)) {
+        $selectedDepartment = $block->getRequest()->getParam('department');
+    }
+    if (empty($selectedDepartment)) {
+        $selectedDepartment = $block->getRequest()->getParam('dep');
+    }
+
+?>
+<div class="block block-helpdesk-ticket-create">
+    <div class="title block-title">
+        <strong><?= $block->escapeHtml(__('Create New Ticket')) ?></strong>
+    </div>
+    <div class="block-content">
+        <form action="<?= $block->escapeUrl($block->getAction()); ?>" method="post" id="helpdesk-new-ticket-form" data-mage-init='{"validation":{}}'>
+            <div class="field note no-label">
+                <?= $block->escapeHtml(__('Jot us a note and we’ll get back to you as quickly as possible.')); ?>
+            </div>
+            <fieldset class="fieldset">
+                <?= /* @noEscape */ $block->getBlockHtml('formkey'); ?>
+
+                <div class="field name required">
+                    <label class="label" for="ticket_title"><span><?= $block->escapeHtml(__('Title')); ?></span></label>
+                    <div class="control">
+                        <input name="title" id="ticket_title" title="<?= $block->escapeHtmlAttr(__('Title')); ?>"  class="input-text" type="text" data-validate="{required:true}" />
+                    </div>
+                </div>
+
+                <div class="field email required">
+                    <label class="label" for="ticket_email"><span><?= $block->escapeHtml(__('Email')); ?></span></label>
+                    <div class="control">
+                        <input disabled name="email" id="ticket_email" title="<?= $block->escapeHtmlAttr(__('Email')); ?>"  class="input-text" type="email" value="<?= $block->escapeHtml($this->getCustomerSession()->getCustomer()->getEmail()) ?>" data-validate="{required:true}" />
+                    </div>
+                </div>
+
+                <div class="field name">
+                    <label class="label" for="ticket_author_name"><span><?= $block->escapeHtml(__('Name')); ?></span></label>
+                    <div class="control">
+                        <input disabled name="author_name" id="ticket_author_name" title="<?= $block->escapeHtmlAttr(__('Name')); ?>"  value="<?= $block->escapeHtml($this->getCustomerSession()->getCustomer()->getName()) ?>" class="input-text" type="text" />
+                    </div>
+                </div>
+
+                <div class="field department required">
+                    <label class="label" for="department_id"><span><?= $block->escapeHtml(__('Department')); ?></span></label>
+                    <div class="control">
+                        <select id="department_id" name="department_id"
+                                title="<?= /* @noEscape */ $block->escapeHtmlAttr(__('Department')) ?>"
+                                class="validate-select">
+                            <!-- <option value=""><?= $block->escapeHtml(__('Please select a department.')) ?></option> -->
+                            <?php foreach ($block->getDepartmentOptionArray() as $option) : ?>
+                                <option value="<?= $block->escapeHtmlAttr($option['value']) ?>" <?= ($option['value'] === $selectedDepartment || $option['label'] === $selectedDepartment) ? 'selected' : ''?>>
+                                    <?= $block->escapeHtml(__($option['label'])) ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="field priority required">
+                    <label class="label" for="priority"><span><?= $block->escapeHtml(__('Priority')); ?></span></label>
+                    <div class="control">
+                        <select id="priority_id" name="priority_id"
+                                title="<?= /* @noEscape */ $block->escapeHtmlAttr(__('Priority')) ?>"
+                                class="validate-select">
+                            <!-- <option value=""><?= $block->escapeHtml(__('Please select a priority.')) ?></option> -->
+                            <?php foreach ($block->getPriorityOptionArray() as $option) : ?>
+                                <option value="<?= $block->escapeHtmlAttr($option['value']) ?>"><?= $block->escapeHtml(__($option['label'])) ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                </div>
+
+
+                <div class="field order">
+                    <label class="label" for="order"><span><?= $block->escapeHtml(__('Order')); ?></span></label>
+                    <div class="control">
+                        <select id="order_id" name="order_id"
+                                title="<?= /* @noEscape */ $block->escapeHtmlAttr(__('Order')) ?>"
+                                >
+                            <option value=""><?= $block->escapeHtml(__('Please select a order.')) ?></option>
+                            <?php foreach ($block->getOrderList() as $option) : ?>
+
+                                <option value="<?= $block->escapeHtmlAttr($option->getEntityId()) ?>">
+                                    <?= $block->escapeHtml(__($option->getIncrementId())) ?> 
+                                    <?= $block->escapeHtml(__($option->getStatus())) ?>        
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="field text required">
+                    <label class="label" for="ticket_text"><span><?= $block->escapeHtml(__('Message')); ?></span></label>
+                    <div class="control">
+                        <textarea name="text" id="ticket_text" title="<?= $block->escapeHtmlAttr(__('Message')); ?>" class="input-text" cols="5" rows="5" data-validate="{required:true}" ></textarea>
+                        
+                    </div>
+                </div>
+                <?= /* @noEscape */ $block->getChildHtml('captcha'); ?>
+            </fieldset>
+
+            <div class="upload-wrapper" data-bind="scope: 'uploader'">
+            <!-- ko template: getTemplate() --><!-- /ko -->
+            </div>
+
+            <script type="text/x-magento-init">
+            {
+               ".upload-wrapper": {
+                   "Magento_Ui/js/core/app": {
+                       "components": {
+                           "uploader": {
+                               "component": "Magento_Ui/js/form/element/file-uploader",
+                               "template": "MagePrakash_Helpdesk/uploader",
+                               "previewTmpl":"MagePrakash_Helpdesk/attachment-preview",
+                               "isMultipleFiles":true,
+                               "uploaderConfig": {
+                                    "url": "<?php echo $block->getUrl('helpdesks/ticketMessage/addAttachment'); ?>"
+                               }
+                           }
+                       }
+                   }
+               }
+            }
+            </script>
+            <div class="actions-toolbar">
+                <div class="primary">
+                    <!-- <input type="hidden" name="hideit" id="hideit" value="" /> -->
+                    <button type="submit" title="<?= $block->escapeHtml(__('Submit')); ?>" class="action submit primary">
+                        <span><?= $block->escapeHtml(__('Submit')); ?></span>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

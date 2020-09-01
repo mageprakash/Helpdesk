@@ -5,6 +5,7 @@ namespace MagePrakash\Helpdesk\Controller\TicketMessage;
 use Magento\Framework\App\RequestInterface;
 use Magento\Framework\Controller\ResultFactory;
 use MagePrakash\Helpdesk\Api\Data\StatusInterface;
+use MagePrakash\Helpdesk\Helper\Config;
 
 class Save extends \MagePrakash\Helpdesk\Controller\AbstractAction
 {
@@ -17,7 +18,7 @@ class Save extends \MagePrakash\Helpdesk\Controller\AbstractAction
 
     private $ticketMessageFactory;
     
-
+    protected $currentCustomer;
 
     public function __construct(
         \Magento\Framework\App\Action\Context $context,
@@ -40,22 +41,24 @@ class Save extends \MagePrakash\Helpdesk\Controller\AbstractAction
     {
         /** @var \Magento\Framework\Controller\Result\Redirect $resultRedirect */
         $resultRedirect = $this->resultFactory->create(ResultFactory::TYPE_REDIRECT);
-
+        $customer = $this->customerSession->getCustomer();
+        
         if (!$this->getRequest()->isPost()) {
             $resultRedirect->setUrl($this->_redirect->getRefererUrl());
             return $resultRedirect;
         }
 
-      if (!$this->formKeyValidator->validate($this->getRequest())) {
+        if (!$this->formKeyValidator->validate($this->getRequest())) {
             $this->messageManager->addError(__('Invalid Form Key. Please refresh the page.'));
             $resultRedirect->setUrl($this->_redirect->getRefererUrl());
             return $resultRedirect;
         }
         
+
         $isCancel = $this->getRequest()->getParam('is_cancel');
         $number = $this->getRequest()->getParam('ticket_id');
 
-        $cancelStatusId = $this->configHelper->getCloseStatusTicket(1);
+        $cancelStatusId = $this->configHelper->getCloseStatusTicket();
         if (!$number) {
             $resultRedirect->setUrl($this->_redirect->getRefererUrl());
             return $resultRedirect;
@@ -71,20 +74,26 @@ class Save extends \MagePrakash\Helpdesk\Controller\AbstractAction
             return $resultRedirect;
         }
 
+        if (!$this->customerSession->isLoggedIn()
+            || $ticket->getCustomerId() !== $customer->getId()
+        ) {
+            $this->messageManager->addError(__('Ticket mismatch found.'));
+            $resultRedirect->setUrl($this->_redirect->getRefererUrl());
+            return $resultRedirect;
+        }
+        
         try {
             $data = $this->getRequest()->getPostValue();
+            
+            $ticket->setReplyBy(Config::TICKET_MESSAGE_CUSTOMER);
+            $ticket->setAuthorName($customer->getFirstname().' '.$customer->getLastname());
+            $ticket->setAuthorEmail($customer->getEmail());
 
             $message = $this->ticketMessageFactory->create();
             $message->setData($data);
-
             
-
             if($ticket->getStatusId() == $cancelStatusId){
-                $ticket->setStatusId($this->configHelper->getNewStatusTicket(1));
-            }else{
-                if($isCancel == "on"){
-                    $ticket->setStatusId($this->configHelper->getCloseStatusTicket(1));
-                }
+                $ticket->setStatusId($this->configHelper->getNewStatusTicket());
             }
 
             $ticket->setData('text' ,$message->getText());
@@ -97,7 +106,6 @@ class Save extends \MagePrakash\Helpdesk\Controller\AbstractAction
             }
 
             $ticket->setFile($file);
-
             $ticket->save();
 
             $this->messageManager->addSuccess(__('Message has been added.'));

@@ -1,0 +1,179 @@
+<?php
+
+$ticketMessages = $block->getTicketMessages();
+$helper = $this->helper(\MagePrakash\Helpdesk\Helper\Config::class); ?>
+
+<div class="messages-container">
+	<ul class="messages-list">
+	<?php  $previousMessage = false; foreach ($ticketMessages->getItems() as $message):
+        $message = $message->getDataModel();
+		?>
+		<li class="messages-list-message <?= ($message->getReplyBy() == 2)?'admin-reply':'customer-reply' ?>">
+		    <div>
+		        <div class="message-main-level">
+		         
+		            <div class="message-box">
+		                <div class="message-head">
+		                    <span class="message-author">
+		                        <?= __($message->getAuthorName()) ?>
+		                    </span>
+		                    <span class="message-created_at">
+		                        <date>
+                                    <?= $block->escapeHtml($helper->getTimeAgo($message->getCreatedAt())) ?>
+                                </date>
+		                    </span>
+		                </div>
+                        <div class="message-content">
+                            <div class="message-text">
+                                <?= /* @noEscape */ $message->getText()?>
+                            </div>
+                            
+                            <?php if(!empty($message->getFilename())): ?>                      
+                                <div class="history-message-attachment">
+                                    <span><strong><?= __('Message Attchment') ?></strong></span>
+                                    <ul class="attchment-list">
+                                    <?php foreach ($message->getFilename() as $key => $value): ?>
+                                        <li><a target="_bank" href="<?= $value ?>"><?= $key ?></a></li>
+                                    <?php endforeach; ?>
+                                    </ul>
+                                </div>
+                            <?php endif; ?>
+
+                            <div class="ticket-history">
+                                 <span><strong><?= __('Ticket History') ?></span></strong></div>
+                                 <ul class="ticket-message-comments">
+                                    <?php $commentStatus = $helper->getComment('Status', $message->getStatusName(), $previousMessage ? $previousMessage->getStatusName() : null);?>
+                                    <?php if (!empty($commentStatus)) : ?>
+                                    <li>
+                                        <span class="message-comment-label"><small><?= __('Status') ?> :</small></span>
+                                        <span class="message-comment-value">
+                                            <small><?= $block->escapeHtml($commentStatus) ?></small>
+                                        </span>
+                                    </li>
+                                    <?php endif;?>
+                                    <?php $commentPriority = $helper->getComment('Priority', $message->getPriorityLabel(), $previousMessage ? $previousMessage->getPriorityLabel() : null);?>
+                                    <?php if (!empty($commentPriority)) : ?>
+                                    <li>
+                                        <span class="message-comment-label"><small><?= __('Priority') ?> :</small></span>
+                                        <span class="message-comment-value">
+                                            <small><?= $block->escapeHtml($commentPriority) ?></small>
+                                        </span>
+                                    </li>
+                                    <?php endif;?>
+                                    <?php $commentDepartment = $helper->getComment('Department', $message->getDepartmentName(), $previousMessage ? $previousMessage->getDepartmentName() : null);?>
+                                    <?php if (!empty($commentDepartment)) : ?>
+                                    <li>
+                                        <span class="message-comment-label"><small><?= __('Department') ?> : </small></span>
+                                        <span class="message-comment-value">
+                                            <small><?= $block->escapeHtml($commentDepartment) ?></small>
+                                        </span>
+                                    </li>
+                                    <?php endif;?>
+                                </ul>
+                        </div>
+		            </div>
+		        </div>
+		    </div>
+		</li>
+	<?php $previousMessage = $message; endforeach; ?>
+	</ul>
+</div>
+
+<style type="text/css">
+    .admin-reply{
+        border: .1rem solid #c2c2c2;
+        border-radius: 2px;
+        background: #f5f5f5;
+        border-left: 3px solid #c2c2c2;
+    }
+    .customer-reply{
+        margin-left: 30%;
+        border: .1rem solid #ccd6c7;
+        border-radius: 3px;
+        background: #d1eaca;
+        border-left: 3px solid #88c56e;
+    }
+
+    .message-head {
+        margin-bottom: 10px;
+        font-weight: bold;
+    }
+    .message-author{
+        float: left;
+    }
+    .message-created_at{
+        float: right;
+    }
+    .message-head-rigth{
+        clear: both;
+    }
+    .messages-list{
+        list-style: none;
+        margin-top: 1em;
+        padding: 0;
+    }
+    ul.messages-list li.messages-list-message{
+        display: block;
+        margin-bottom: 1rem;
+        padding: 2rem;
+        width: 66%;
+    }
+    .ticket-info
+    {
+        background: #f5f5f5;
+        padding: 15px;
+        clear: both;
+    }
+    .field.ticket-info-view {
+        margin: 0 0 10px!important;
+    }
+    .field.ticket-info-view .label {
+        width: calc((100%) * 0.3 - 30px)!important;
+        float: left;
+        margin-left: 10px!important;
+        font-weight: 600;
+    }
+
+    .field.ticket-info-view .control {
+        width: calc((100%) * 0.5 - 30px)!important;
+    }
+    .message-files{
+        list-style: none;
+    }
+    .ticket-message-comments,.attchment-list{
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+    .ticket-message-comments li,.attchment-list li{
+        padding: 0;
+        margin: 0;
+    }
+    .message-comment-label{
+        font-weight: 600;
+    }
+    .ticket-history {
+        clear: both;
+        width: 100%;
+        padding-top: 10px;
+    }
+   
+    .message-content {
+        clear: both;
+    }
+    .message-text,.history-message-attachment{
+        padding-top: 10px; 
+    }
+    .ticket-basic-info{
+        width: 100%;
+    }
+    .ticket-date{
+        width: 50%;
+        float: left;
+    }
+    .div-cancel{
+        width: 50%;
+        float: left;        
+    }
+
+</style>

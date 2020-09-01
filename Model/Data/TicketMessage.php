@@ -4,9 +4,20 @@
 namespace MagePrakash\Helpdesk\Model\Data;
 
 use MagePrakash\Helpdesk\Api\Data\TicketMessageInterface;
+use MagePrakash\Helpdesk\Model\Upload;
 
 class TicketMessage extends \Magento\Framework\Api\AbstractExtensibleObject implements TicketMessageInterface
 {
+    protected $_storeManager;
+    protected $filterProvider;
+
+    public function __construct(
+        \Magento\Cms\Model\Template\FilterProvider $filterProvider,
+        \Magento\Store\Model\StoreManagerInterface $storeManager
+    ){
+        $this->filterProvider = $filterProvider;
+        $this->_storeManager = $storeManager;
+    }
 
     /**
      * Get ticket_message_id
@@ -110,7 +121,7 @@ class TicketMessage extends \Magento\Framework\Api\AbstractExtensibleObject impl
      */
     public function getText()
     {
-        return $this->_get(self::TEXT);
+        return $this->filterProvider->getBlockFilter()->filter($this->_get(self::TEXT));
     }
 
     /**
@@ -235,5 +246,216 @@ class TicketMessage extends \Magento\Framework\Api\AbstractExtensibleObject impl
     public function setEnabled($enabled)
     {
         return $this->setData(self::ENABLED, $enabled);
+    }
+
+    /**
+     * Get reply_by
+     * @return string|null
+     */
+    public function getReplyBy()
+    {
+        return $this->_get(self::REPLY_BY);
+    }
+
+    /**
+     * Set reply_by
+     * @param string $replyBy
+     * @return \MagePrakash\Helpdesk\Api\Data\TicketMessageInterface
+     */
+    public function setReplyBy($replyBy)
+    {
+        return $this->setData(self::REPLY_BY, $replyBy);
+    }
+
+    /**
+     * Get department_name
+     * @return string|null
+     */
+    public function getDepartmentName()
+    {
+        return $this->_get(self::DEPARTMENT_NAME);
+    }
+
+    /**
+     * Set department_name
+     * @param string $departmentName
+     * @return \MagePrakash\Helpdesk\Api\Data\TicketMessageInterface
+     */
+    public function setDepartmentName($departmentName)
+    {
+        return $this->setData(self::DEPARTMENT_NAME, $departmentName);
+    }
+    
+    /**
+     * Get status_name
+     * @return string|null
+     */
+    public function getStatusName()
+    {
+        return $this->_get(self::STATUS_NAME);
+    }
+    
+    /**
+     * Set status_name
+     * @param string $statusName
+     * @return \MagePrakash\Helpdesk\Api\Data\TicketMessageInterface
+     */
+    public function setStatusName($statusName)
+    {
+        return $this->setData(self::STATUS_NAME, $statusName);
+    }
+    
+    /**
+     * Get priority_label
+     * @return string|null
+     */
+    public function getPriorityLabel()
+    {
+        return $this->_get(self::PRIORITY_LABEL);
+    }
+    
+    /**
+     * Set priority_label
+     * @param string $priorityLabel
+     * @return \MagePrakash\Helpdesk\Api\Data\TicketMessageInterface
+     */
+    public function setPriorityLabel($priorityLabel)
+    {
+        return $this->setData(self::PRIORITY_LABEL, $priorityLabel);
+    }
+
+    public function getMediaUrl($path)
+    {
+        return $this->_storeManager->getStore()->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA). Upload::HELPDESK_ATTACHMENT_PATH . $path;
+    }
+    /**
+     * Get filename
+     * @return mixed
+     */
+    public function getFilename()
+    {
+        $fileList = [];
+        
+        if($this->_get(self::FILENAME))
+        {
+            $filenames = explode(",", $this->_get(self::FILENAME));
+            
+            if(!empty($filenames))
+            {
+                foreach ($filenames as $value){
+                    if($value)
+                    $value = $this->getMediaUrl($value);
+                    $path = parse_url($value, PHP_URL_PATH);
+                    $fileList[basename($path)] =  $value;
+                }
+            }
+        }
+        return $fileList;
+    }
+    
+    /**
+     * Set filename
+     * @param string $filename
+     * @return \MagePrakash\Helpdesk\Api\Data\TicketMessageInterface
+     */
+    public function setFilename($filename)
+    {
+        return $this->setData(self::FILENAME, $filename);
+    }
+
+    /**
+     * Get filepath
+     * @return string|null
+     */
+    public function getFilepath()
+    {
+        return $this->_get(self::FILEPATH);
+    }
+    
+    /**
+     * Set filepath
+     * @param string $filepath
+     * @return \MagePrakash\Helpdesk\Api\Data\TicketMessageInterface
+     */
+    public function setFilepath($filepath)
+    {
+        return $this->setData(self::FILEPATH, $filepath);
+    }
+
+
+    /**
+     * Get filesize
+     * @return string|null
+     */
+    public function getFilesize()
+    {
+        return $this->_get(self::FILESIZE);
+    }
+    
+    /**
+     * Set filesize
+     * @param string $filesize
+     * @return \MagePrakash\Helpdesk\Api\Data\TicketMessageInterface
+     */
+    public function setFilesize($filesize)
+    {
+        return $this->setData(self::FILESIZE, $filesize);
+    }
+
+    /**
+     * Get filetype
+     * @return string|null
+     */
+    public function getFiletype()
+    {
+        return $this->_get(self::FILETYPE);
+    }
+    
+    /**
+     * Set filetype
+     * @param string $filetype
+     * @return \MagePrakash\Helpdesk\Api\Data\TicketMessageInterface
+     */
+    public function setFiletype($filetype)
+    {
+        return $this->setData(self::FILETYPE, $filetype);
+    }
+
+    /**
+     * Get author_email
+     * @return string|null
+     */
+    public function getAuthorEmail()
+    {
+        return $this->_get(self::AUTHOR_EMAIL);
+    }
+    
+    /**
+     * Set author_email
+     * @param string $authoremail
+     * @return \MagePrakash\Helpdesk\Api\Data\TicketMessageInterface
+     */
+    public function setAuthorEmail($authoremail)
+    {
+        return $this->setData(self::AUTHOR_EMAIL, $authoremail);
+    }
+
+    /**
+     * Get author_name
+     * @return string|null
+     */
+    public function getAuthorName()
+    {
+        return $this->_get(self::AUTHOR_NAME);
+    }
+    
+    /**
+     * Set author_name
+     * @param string $authorname
+     * @return \MagePrakash\Helpdesk\Api\Data\TicketMessageInterface
+     */
+    public function setAuthorName($authorname)
+    {
+        return $this->setData(self::AUTHOR_NAME, $authorname);
     }
 }

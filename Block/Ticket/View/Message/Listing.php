@@ -10,6 +10,7 @@ class Listing extends \MagePrakash\Helpdesk\Block\Ticket\AbstractBlock
 
     public function getMessages()
     {
+         
         if (!$this->getCurrentTicket()) {
             return;
         }
@@ -28,7 +29,7 @@ class Listing extends \MagePrakash\Helpdesk\Block\Ticket\AbstractBlock
             ->setOrder('main_table.ticket_message_id', $sortOrder);
 
         $collection->getSelect()->group('ticket_message_id');
-
+          
         return $collection;
     }
 }

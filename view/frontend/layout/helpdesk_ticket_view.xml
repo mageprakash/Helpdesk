@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="2columns-left"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="customer_account"/>
+
+    <body>
+        <referenceContainer name="content">
+            <block class="MagePrakash\Helpdesk\Block\Ticket\View" name="mageprakash_helpdesk_ticket_view" cacheable="false">
+                <block class="MagePrakash\Helpdesk\Block\Ticket\History" name="mageprakash.helpdesk.ticket.view.messages" as="messages" />
+                <block class="MagePrakash\Helpdesk\Block\Ticket\View\Message\Form" name="mageprakash.helpdesk.ticket.view.new_message" as="new_message" />
+            </block>
+        </referenceContainer>
+    </body>
+</page>

@@ -1,0 +1,39 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+	<acl>
+		<resources>
+			<resource id="Magento_Backend::admin">
+				<resource id="MagePrakash_Helpdesk::department" sortOrder="10" title="department">
+					<resource id="MagePrakash_Helpdesk::department_save" sortOrder="10" title="Save department"/>
+					<resource id="MagePrakash_Helpdesk::department_delete" sortOrder="20" title="Delete department"/>
+					<resource id="MagePrakash_Helpdesk::department_update" sortOrder="30" title="Update department"/>
+					<resource id="MagePrakash_Helpdesk::department_view" sortOrder="40" title="View department"/>
+				</resource>
+				<resource id="MagePrakash_Helpdesk::department_user" sortOrder="10" title="department_user">
+					<resource id="MagePrakash_Helpdesk::department_user_save" sortOrder="10" title="Save department_user"/>
+					<resource id="MagePrakash_Helpdesk::department_user_delete" sortOrder="20" title="Delete department_user"/>
+					<resource id="MagePrakash_Helpdesk::department_user_update" sortOrder="30" title="Update department_user"/>
+					<resource id="MagePrakash_Helpdesk::department_user_view" sortOrder="40" title="View department_user"/>
+				</resource>
+				<resource id="MagePrakash_Helpdesk::status" sortOrder="10" title="status">
+					<resource id="MagePrakash_Helpdesk::status_save" sortOrder="10" title="Save status"/>
+					<resource id="MagePrakash_Helpdesk::status_delete" sortOrder="20" title="Delete status"/>
+					<resource id="MagePrakash_Helpdesk::status_update" sortOrder="30" title="Update status"/>
+					<resource id="MagePrakash_Helpdesk::status_view" sortOrder="40" title="View status"/>
+				</resource>
+				<resource id="MagePrakash_Helpdesk::ticket" sortOrder="10" title="ticket">
+					<resource id="MagePrakash_Helpdesk::ticket_save" sortOrder="10" title="Save ticket"/>
+					<resource id="MagePrakash_Helpdesk::ticket_delete" sortOrder="20" title="Delete ticket"/>
+					<resource id="MagePrakash_Helpdesk::ticket_update" sortOrder="30" title="Update ticket"/>
+					<resource id="MagePrakash_Helpdesk::ticket_view" sortOrder="40" title="View ticket"/>
+				</resource>
+				<resource id="MagePrakash_Helpdesk::priority" sortOrder="10" title="Priority">
+					<resource id="MagePrakash_Helpdesk::priority_save" sortOrder="10" title="Save Priority"/>
+					<resource id="MagePrakash_Helpdesk::priority_delete" sortOrder="20" title="Delete Priority"/>
+					<resource id="MagePrakash_Helpdesk::priority_update" sortOrder="30" title="Update Priority"/>
+					<resource id="MagePrakash_Helpdesk::priority_view" sortOrder="40" title="View Priority"/>
+				</resource>
+			</resource>
+		</resources>
+	</acl>
+</config>

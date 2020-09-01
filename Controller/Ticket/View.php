@@ -52,6 +52,7 @@ class View extends \MagePrakash\Helpdesk\Controller\AbstractAction
             ->addFieldToFilter('ticket_id',['eq' => $number])           
             ->getFirstItem();
             
+       
         if (!$ticket->getTicketId()) {
 
             /** @var \Magento\Framework\Controller\Result\Redirect $resultRedirect */
@@ -69,26 +70,10 @@ class View extends \MagePrakash\Helpdesk\Controller\AbstractAction
                 $this->_actionFlag->set('', self::FLAG_NO_DISPATCH, true);
             }
             $currentTicket = $ticket;
-        } else {
-            $email = $this->getRequest()->getParam(
-                'email',
-                $this->customerSession->getData('ticket_guest_email')
-            );
-            $email = trim($email);
-            if ($ticket->getEmail() === $email) {
-                $currentTicket = $ticket;
-                $this->customerSession->setData('ticket_guest_email', $email);
-            }
         }
+        
         $this->registry->register('current_ticket', $currentTicket);
-
-        /** @var \Magento\Framework\View\Result\Page $resultPage */
         $resultPage = $this->resultFactory->create(ResultFactory::TYPE_PAGE);
-      /*  $resultPage->getConfig()->getTitle()->set('');
-        $resultPage->getConfig()->setKeywords($this->configHelper->getMetaKeywords());
-        $resultPage->getConfig()->setDescription(
-            $this->configHelper->getMetaDescription()
-        );*/
 
         return $resultPage;
     }

@@ -11,12 +11,12 @@ class View extends AbstractBlock
      *
      * @return string
      */
-    public function getGuestEmailVerificationAction()
+    public function getClostTicketUrl()
     {
-        $number = $this->getRequest()->getParam('ticket_id');
+        $ticket_id = $this->getRequest()->getParam('ticket_id');
 
-        return $this->getUrl('helpdesks/ticket/view', [
-            'number' => $number
+        return $this->getUrl('helpdesk/ticket/close', [
+            'ticket_id' => $ticket_id
         ]);
     }
 }

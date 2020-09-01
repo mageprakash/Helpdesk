@@ -53,7 +53,7 @@ class AbstractBlock extends \Magento\Framework\View\Element\Template
 
     public function getAction()
     {
-        return $this->getUrl('helpdesks/ticket/save');
+        return $this->getUrl('helpdesk/ticket/save');
     }
 
     protected function getCustomerSession()

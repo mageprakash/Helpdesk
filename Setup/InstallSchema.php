@@ -23,7 +23,7 @@ class InstallSchema implements InstallSchemaInterface
         $this->statusTable($setup);
         $this->priority($setup);
         $this->departmentUserTable($setup);
-        $this->reason($setup);
+        /*$this->reason($setup);*/
         $this->ticketTable($setup);       
         $this->ticketMessageTable($setup);
         $this->fileTable($setup);
@@ -167,7 +167,7 @@ class InstallSchema implements InstallSchemaInterface
             \Magento\Framework\DB\Ddl\Table::TYPE_TIMESTAMP,
             null,
             [
-                'nullable'  => true,
+                'nullable'  => false,
                 'default'  => null,
             ],
             'created_at'
@@ -408,7 +408,6 @@ class InstallSchema implements InstallSchemaInterface
         );
 
 
-
         $table_mageprakash_helpdesk_ticket_message->addColumn(
             'user_id',
             \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
@@ -444,14 +443,41 @@ class InstallSchema implements InstallSchemaInterface
         );
 
         $table_mageprakash_helpdesk_ticket_message->addColumn(
-            'department_id',
+            'reply_by',
+            \Magento\Framework\DB\Ddl\Table::TYPE_SMALLINT,
+            null,
+            [
+                'nullable'  => false,
+                'default'  => 1
+            ],
+            'reply_by'
+        );
+
+        $table_mageprakash_helpdesk_ticket_message->addColumn(
+            'number',
+            \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
+            255,
+            ['nullable'  => false],
+            'number'
+        );
+
+        $table_mageprakash_helpdesk_ticket_message->addColumn(
+            'author_name',
+            \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
+            255,
+            ['nullable'  => false],
+            'author_email'
+        );
+
+        $table_mageprakash_helpdesk_ticket_message->addColumn(
+            'author_email',
             \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
             10,
             [ 
                 'unsigned'  => true,
                 'nullable'  => false
             ],
-            'department_id'
+            'author_email'
         );
 
         $table_mageprakash_helpdesk_ticket_message->addColumn(

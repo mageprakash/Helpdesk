@@ -29,7 +29,7 @@
 		<settings>
 			<submitUrl path="*/*/save"/>
 		</settings>
-		<dataProvider class="MagePrakash\Helpdesk\Model\Priority\DataProvider" name="priority_form_data_source">
+		<dataProvider class="MagePrakash\Helpdesk\Model\DataProvider\Priority" name="priority_form_data_source">
 			<settings>
 				<requestFieldName>priority_id</requestFieldName>
 				<primaryFieldName>priority_id</primaryFieldName>

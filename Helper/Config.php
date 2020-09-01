@@ -18,6 +18,11 @@ class Config extends ContactHelper
     const CONFIG_XML_PATH_MAIL_ARCHIVEMAIL           = 'helpdesks/mail/archive';
     const CONFIG_XML_PATH_NEW_STATUS_TICKET          = 'helpdesks/general/tickets_status_new';
     const CONFIG_XML_PATH_CLOSE_STATUS_TICKET        = 'helpdesks/general/tickets_status_close';
+    const TICKET_MESSAGE_CUSTOMER                    = 1;
+    const TICKET_MESSAGE_ADMIN                       = 2;
+    const TICKET_MESSAGE_CLOSE_STATUS_TEXT           = "Ticket Close By Client.";
+    
+
     /**
      *
      * @var \Magento\Customer\Model\CustomerFactory
@@ -55,9 +60,12 @@ class Config extends ContactHelper
      * @param  string $key
      * @return mixed
      */
-    private function getConfig($key, $store = null)
+    private function getConfig($key)
     {
-        return $this->scopeConfig->getValue($key, ScopeInterface::SCOPE_STORE, $store);
+        return $this->scopeConfig->getValue(
+            $key,
+            \Magento\Store\Model\ScopeInterface::SCOPE_STORE
+        );
     }
 
     /**
@@ -114,26 +122,26 @@ class Config extends ContactHelper
      */
     public function getAllowedFileExtensionsString()
     {
-        return $this->getConfig(self::CONFIG_XML_PATH_ALLOWED_EXTENSION,1);
+        return $this->getConfig(self::CONFIG_XML_PATH_ALLOWED_EXTENSION);
     }
 
     /**
      *
      * @return string
      */
-    public function getNewStatusTicket($store)
+    public function getNewStatusTicket()
     {
 
-        return $this->getConfig(self::CONFIG_XML_PATH_NEW_STATUS_TICKET,$store);
+        return $this->getConfig(self::CONFIG_XML_PATH_NEW_STATUS_TICKET);
     }
 
         /**
      *
      * @return string
      */
-    public function getCloseStatusTicket($store)
+    public function getCloseStatusTicket()
     {
-        return $this->getConfig(self::CONFIG_XML_PATH_CLOSE_STATUS_TICKET,$store);
+        return $this->getConfig(self::CONFIG_XML_PATH_CLOSE_STATUS_TICKET);
     }
 
     /**

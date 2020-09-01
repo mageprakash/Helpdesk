@@ -5,8 +5,7 @@
     $property = [
         'Department' => $ticket->getDepartmentName(),
         'Status'     => $ticket->getStatusName(),
-        'Priority'   => $ticket->getPriorityLabel(),
-        // 'Support Rating' => $rate
+        'Priority'   => $ticket->getPriorityLabel()
     ];
 ?>
 <div class="page-title-wrapper">
@@ -19,8 +18,17 @@
     ?></span>
     </h1>
     <span class="order-status"><?= $block->escapeHtml(__($ticket->getStatusName())) ?></span>
-    <div class="order-date">
-        <?= /* @noEscape */ __('<span class="label">Ticket Date:</span> %1', '<date>' . $block->formatDate($ticket->getCreatedAt(), \IntlDateFormatter::LONG) . '</date>') ?>
+    <div class="ticket-basic-info">
+        <div class="ticket-date">
+            <?= /* @noEscape */ __('<span class="label">Ticket Date:</span> %1', '<date>' . $block->formatDate($ticket->getCreatedAt(), \IntlDateFormatter::LONG) . '</date>') ?>
+        </div>
+        <div class="div-cancel">
+            <a class="ticket-close-link" href="<?= $block->getClostTicketUrl() ?>">
+                <button type="button" title="cancel" class="action submit primary">
+                    <span>Close Ticket</span>
+                </button>
+            </a>
+        </div>
     </div>
 </div>
 <div class="block block-helpdesk-ticket-view">
@@ -28,8 +36,10 @@
         <div class="ticket-info">
             <dl>
                 <?php foreach ($property as $label => $value) : ?>
-                    <dt class="label"><?= $block->escapeHtml(__($label)) ?></dt>
-                    <dd class="value"><?= $block->escapeHtml(__($value)) ?></dd>
+                    <div class="field ticket-info-view">
+                        <label class="label"><?= $block->escapeHtml(__($label)) ?></label>
+                        <div class="control"><span><?= $block->escapeHtml(__($value)) ?></span></div>
+                    </div>
                 <?php endforeach;?>
             </dl>
         </div>

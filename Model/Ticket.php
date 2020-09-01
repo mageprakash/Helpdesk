@@ -7,6 +7,7 @@ use MagePrakash\Helpdesk\Api\Data\TicketMessageInterfaceFactory;
 use MagePrakash\Helpdesk\Api\Data\TicketInterface;
 use MagePrakash\Helpdesk\Api\Data\TicketInterfaceFactory;
 use Magento\Framework\Api\DataObjectHelper;
+use MagePrakash\Helpdesk\Helper\Config;
 
 class Ticket extends \Magento\Framework\Model\AbstractModel
 {
@@ -16,8 +17,8 @@ class Ticket extends \Magento\Framework\Model\AbstractModel
     protected $_eventPrefix = 'mageprakash_helpdesk_ticket';
     protected $dataObjectHelper;
     protected $ticketMessageCollectionFactory;
-
-
+    protected $departmentFactory;
+    protected $customerRepositoryFactory;
     /**
      * @param \Magento\Framework\Model\Context $context
      * @param \Magento\Framework\Registry $registry
@@ -33,15 +34,19 @@ class Ticket extends \Magento\Framework\Model\AbstractModel
         TicketInterfaceFactory $ticketDataFactory,
         TicketMessageFactory $TicketMessageFactory,        
         DataObjectHelper $dataObjectHelper,
+        \MagePrakash\Helpdesk\Model\DepartmentFactory $departmentFactory,        
         \MagePrakash\Helpdesk\Model\ResourceModel\Ticket $resource,
         \MagePrakash\Helpdesk\Model\ResourceModel\Ticket\Collection $resourceCollection,
         \MagePrakash\Helpdesk\Model\ResourceModel\TicketMessage\CollectionFactory $ticketMessageCollectionFactory,
+        \Magento\Customer\Api\CustomerRepositoryInterfaceFactory $customerRepositoryFactory,
         array $data = []
     ) {
         $this->ticketMessageCollectionFactory = $ticketMessageCollectionFactory;        
         $this->ticketMessageFactory = $TicketMessageFactory;        
         $this->ticketDataFactory = $ticketDataFactory;
         $this->dataObjectHelper = $dataObjectHelper;
+        $this->departmentFactory = $departmentFactory;
+        $this->customerRepositoryFactory = $customerRepositoryFactory;
         parent::__construct($context, $registry, $resource, $resourceCollection, $data);
     }
 
@@ -76,6 +81,24 @@ class Ticket extends \Magento\Framework\Model\AbstractModel
         return $ticketMessageCollection;
     }
 
+    /**
+     *
+     * @return \Swissup\Helpdesk\Api\Data\DepartmentInterface
+     */
+    public function getDepartment()
+    {
+        return $this->departmentFactory->create()->load(
+            $this->getDepartmentId()
+        );
+    }
+
+    public function getCustomer()
+    {
+        return $this->getCustomerId() ? $this->customerRepositoryFactory->create()->getById(
+            $this->getCustomerId()
+        ) : false;
+    }
+
     public function afterSave()
     {
         parent::afterSave();
@@ -83,7 +106,7 @@ class Ticket extends \Magento\Framework\Model\AbstractModel
         $ticketMessage = $this;
 
         $ticketMessageFactory = $this->ticketMessageFactory->create();
-
+        
         if($ticketMessage->getText() != "" || !empty($ticketMessage->getFile()))
         {
             $ticketMessageFactory->addData([
@@ -96,7 +119,10 @@ class Ticket extends \Magento\Framework\Model\AbstractModel
                 'status_id'         => $ticketMessage->getStatusId(),
                 'priority_id'       => $ticketMessage->getPriorityId(),
                 'department_id'     => $ticketMessage->getDepartmentId(),
-                'enabled'           => 1
+                'enabled'           => 1,
+                'reply_by'          => $ticketMessage->getReplyBy(),
+                'author_name'       => $ticketMessage->getAuthorName(), 
+                'author_email'      => $ticketMessage->getAuthorEmail()
             ]);
         }
         

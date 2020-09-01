@@ -29,7 +29,7 @@
 		<settings>
 			<submitUrl path="*/*/save"/>
 		</settings>
-		<dataProvider class="MagePrakash\Helpdesk\Model\Department\DataProvider" name="department_form_data_source">
+		<dataProvider class="MagePrakash\Helpdesk\Model\DataProvider\Department" name="department_form_data_source">
 			<settings>
 				<requestFieldName>department_id</requestFieldName>
 				<primaryFieldName>department_id</primaryFieldName>
@@ -110,7 +110,7 @@
         </field>
         <field name="email_template_new">
             <argument name="data" xsi:type="array">
-                <item name="options" xsi:type="object">MagePrakash\Helpdesk\Model\Source\EmailTemplate</item>
+                <item name="options" xsi:type="object">MagePrakash\Helpdesk\Model\Config\Source\EmailTemplate</item>
                 <item name="config" xsi:type="array">
                     <item name="dataType" xsi:type="string">text</item>
                     <item name="label" xsi:type="string" translate="true">New Ticket Created (customer notification)</item>
@@ -124,7 +124,7 @@
         </field>
         <field name="email_template_answer">
             <argument name="data" xsi:type="array">
-                <item name="options" xsi:type="object">MagePrakash\Helpdesk\Model\Source\EmailTemplate</item>
+                <item name="options" xsi:type="object">MagePrakash\Helpdesk\Model\Config\Source\EmailTemplate</item>
                 <item name="config" xsi:type="array">
                     <item name="dataType" xsi:type="string">text</item>
                     <item name="label" xsi:type="string" translate="true">Ticked Answered/Changed (customer notification)</item>
@@ -138,7 +138,7 @@
         </field>
         <field name="email_template_admin">
             <argument name="data" xsi:type="array">
-                <item name="options" xsi:type="object">MagePrakash\Helpdesk\Model\Source\EmailTemplate</item>
+                <item name="options" xsi:type="object">MagePrakash\Helpdesk\Model\Config\Source\EmailTemplate</item>
                 <item name="config" xsi:type="array">
                     <item name="dataType" xsi:type="string">text</item>
                     <item name="label" xsi:type="string" translate="true">Ticket New Activity (admin notification)</item>

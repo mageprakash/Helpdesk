@@ -17,6 +17,7 @@ class Listing extends \MagePrakash\Helpdesk\Block\Ticket\AbstractBlock
     protected $collectionFactory;
 
     protected $collection;
+    protected $validatorPool;
 
     /**
      *
@@ -31,12 +32,11 @@ class Listing extends \MagePrakash\Helpdesk\Block\Ticket\AbstractBlock
         \Magento\Framework\Registry $coreRegistry,
         \MagePrakash\Helpdesk\Model\ResourceModel\Ticket\CollectionFactory $collectionFactory,
         \Magento\Store\Model\StoreManagerInterface $storeManager,
-         \MagePrakash\Helpdesk\Helper\Config $configHelper,
+        \MagePrakash\Helpdesk\Helper\Config $configHelper,
         array $data = []
     ) {
         $this->collectionFactory = $collectionFactory;
         $this->storeManager = $storeManager;
-
         parent::__construct(
             $context,
             $customerSessionFactory,
@@ -82,6 +82,7 @@ class Listing extends \MagePrakash\Helpdesk\Block\Ticket\AbstractBlock
      */
     protected function _prepareLayout()
     {
+
         parent::_prepareLayout();
 
         if ($this->getTickets()) {
@@ -94,6 +95,7 @@ class Listing extends \MagePrakash\Helpdesk\Block\Ticket\AbstractBlock
             $this->setChild('pager', $pager);
             $this->getTickets()->load();
         }
+
         return $this;
     }
 
@@ -102,6 +104,7 @@ class Listing extends \MagePrakash\Helpdesk\Block\Ticket\AbstractBlock
      */
     public function getPagerHtml()
     {
+        
         return $this->getChildHtml('pager');
     }
 
@@ -111,7 +114,7 @@ class Listing extends \MagePrakash\Helpdesk\Block\Ticket\AbstractBlock
      */
     public function getViewUrl($ticket)
     {
-        return $this->getUrl('helpdesks/ticket/view', ['ticket_id' => $ticket->getTicketId()]);
+        return $this->getUrl('helpdesk/ticket/view', ['ticket_id' => $ticket->getTicketId()]);
     }
 
     /**

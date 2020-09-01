@@ -27,6 +27,7 @@ class InstallData implements InstallDataInterface
     }
 
     public function departmentData($setup,$connection){
+
         $disabledStatus = 1;
         $adminUserId = 1;
         $departmentId = 1;
@@ -40,6 +41,7 @@ class InstallData implements InstallDataInterface
             'email_template_new'    => 'mageprakash_helpdesk_ticket_create_notify_customer_email_template',
             'email_template_answer' => 'mageprakash_helpdesk_ticket_changed_notify_customer_email_template',
             'email_template_admin'  => 'mageprakash_helpdesk_ticket_changed_notify_admin_email_template',
+            'created_at'            => date("Y/m/d")
         ]);
 
         $connection->insert($setup->getTable('mageprakash_helpdesk_department'), [
@@ -51,6 +53,7 @@ class InstallData implements InstallDataInterface
             'email_template_new'    => 'mageprakash_helpdesk_ticket_create_notify_customer_email_template',
             'email_template_answer' => 'mageprakash_helpdesk_ticket_changed_notify_customer_email_template',
             'email_template_admin'  => 'mageprakash_helpdesk_ticket_changed_notify_admin_email_template',
+            'created_at'            => date("Y/m/d")
         ]);
 
         $connection->insert($setup->getTable('mageprakash_helpdesk_department_user'), [

@@ -83,6 +83,18 @@
                 </item>
             </argument>
         </column>
+		<column name="status">
+			<argument name="data" xsi:type="array">
+				<item name="options" xsi:type="object">Magento\Cms\Model\Page\Source\IsActive</item>
+				<item name="config" xsi:type="array">
+					<item name="filter" xsi:type="string">select</item>
+					<item name="component" xsi:type="string">Magento_Ui/js/grid/columns/select</item>
+					<item name="dataType" xsi:type="string">select</item>
+					<item name="align" xsi:type="string">left</item>
+					<item name="label" xsi:type="string" translate="true">Status</item>
+				</item>
+			</argument>
+		</column>
         <column name="sort_order">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
@@ -91,19 +103,7 @@
                 </item>
             </argument>
         </column>
-        <column name="status">
-            <argument name="data" xsi:type="array">
-                <item name="options" xsi:type="object">Magento\Cms\Model\Page\Source\IsActive</item>
-                <item name="config" xsi:type="array">
-                    <item name="filter" xsi:type="string">select</item>
-                    <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/select</item>
-                    <item name="dataType" xsi:type="string">select</item>
-                    <item name="align" xsi:type="string">left</item>
-                    <item name="label" xsi:type="string" translate="true">Status</item>
-                    <item name="sortOrder" xsi:type="number">80</item>
-                </item>
-            </argument>
-        </column>
+
 		<actionsColumn class="MagePrakash\Helpdesk\Ui\Component\Listing\Column\PriorityActions" name="actions">
 			<settings>
 				<indexField>priority_id</indexField>

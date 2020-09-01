@@ -125,6 +125,25 @@ class TicketMessageRepository implements TicketMessageRepositoryInterface
         return $ticketMessage->getDataModel();
     }
 
+    public function getMessageList($ticketId) {
+        $ticketMessageCollection = $this->ticketMessageCollectionFactory->create();
+        $ticketMessageCollection->addDepartmentNameToSelect()
+            ->addFieldToFilter('main_table.ticket_id',$ticketId)
+            ->addCustomerIdToSelect()
+            ->addCustomerEmailToSelect()
+            ->addAdminUserEmailToSelect()
+            ->addEmailToSelect()
+            ->addStatusNameToSelect()
+            ->addPriorityToSelect()
+            ->addFilterByEnabled()
+            ->addAttachmentToSelect()
+            ->setOrder('main_table.ticket_message_id', \Magento\Framework\Data\Collection::SORT_ORDER_DESC);
+
+        $ticketMessageCollection->getSelect()->group('ticket_message_id');
+
+        return $ticketMessageCollection;
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -132,7 +151,8 @@ class TicketMessageRepository implements TicketMessageRepositoryInterface
         \Magento\Framework\Api\SearchCriteriaInterface $criteria
     ) {
         $collection = $this->ticketMessageCollectionFactory->create();
-        
+        //$collection->addFieldToSelect('*');
+
         $this->extensionAttributesJoinProcessor->process(
             $collection,
             \MagePrakash\Helpdesk\Api\Data\TicketMessageInterface::class
@@ -143,6 +163,14 @@ class TicketMessageRepository implements TicketMessageRepositoryInterface
         $searchResults = $this->searchResultsFactory->create();
         $searchResults->setSearchCriteria($criteria);
         
+        $collection
+            ->addDepartmentNameToSelect()
+            ->addStatusNameToSelect()
+            ->addPriorityToSelect()
+            ->addAttachmentToSelect()
+            ->addFilterByEnabled(); 
+
+        $collection->getSelect()->group('ticket_message_id');
         $items = [];
         foreach ($collection as $model) {
             $items[] = $model->getDataModel();

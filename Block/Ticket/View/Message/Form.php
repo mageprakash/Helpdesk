@@ -17,6 +17,6 @@ class Form extends AbstractBlock
      */
     public function getAction()
     {
-        return $this->getUrl('helpdesks/ticketMessage/save');
+        return $this->getUrl('helpdesk/ticketMessage/save');
     }
 }

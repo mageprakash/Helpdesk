@@ -1,14 +1,10 @@
 <?xml version="1.0" ?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
 	<menu>
-		<add id="MagePrakash::top_level" module="MagePrakash_Helpdesk" resource="Magento_Backend::content" sortOrder="100" title="MagePrakash"/>
-		<add id="MagePrakash_Helpdesk::help_desk" title="HelpDesk" module="MagePrakash_Helpdesk" sortOrder="110" parent="MagePrakash::top_level" resource="Magento_Backend::content"/>
-		<add action="mageprakash_helpdesk/department/index" id="MagePrakash_Helpdesk::mageprakash_helpdesk_department" module="MagePrakash_Helpdesk" parent="MagePrakash_Helpdesk::help_desk" resource="Magento_Backend::content" sortOrder="120" title="Department"/>
-		<add action="mageprakash_helpdesk/ticket/index" id="MagePrakash_Helpdesk::mageprakash_helpdesk_ticket" module="MagePrakash_Helpdesk" parent="MagePrakash_Helpdesk::help_desk" resource="Magento_Backend::content" sortOrder="120" title="Ticket"/>
-		<add action="mageprakash_helpdesk/status/index" id="MagePrakash_Helpdesk::mageprakash_helpdesk_status" module="MagePrakash_Helpdesk" parent="MagePrakash_Helpdesk::help_desk" resource="Magento_Backend::content" sortOrder="130" title="Status"/>
-
-		<add action="mageprakash_helpdesk/priority/index" id="MagePrakash_Helpdesk::mageprakash_helpdesk_priority" module="MagePrakash_Helpdesk" parent="MagePrakash_Helpdesk::help_desk" resource="Magento_Backend::content" sortOrder="9999" title="Priority"/>
-
-		<!-- <add action="mageprakash_helpdesk/reason/index" id="MagePrakash_Helpdesk::mageprakash_helpdesk_reason" module="MagePrakash_Helpdesk" parent="MagePrakash_Helpdesk::help_desk" resource="Magento_Backend::content" sortOrder="9999" title="Reason"/> -->
+		<add id="MagePrakash_Helpdesk::help_desk" title="HelpDesk" module="MagePrakash_Helpdesk" sortOrder="110" parent="Magento_Backend::marketing" resource="Magento_Backend::content"/>
+		<add action="mageprakash_helpdesk/department/index" id="MagePrakash_Helpdesk::mageprakash_helpdesk_department" module="MagePrakash_Helpdesk" parent="MagePrakash_Helpdesk::help_desk" resource="MagePrakash_Helpdesk::department" sortOrder="100" title="Department"/>
+		<add action="mageprakash_helpdesk/ticket/index"     id="MagePrakash_Helpdesk::mageprakash_helpdesk_ticket" module="MagePrakash_Helpdesk" parent="MagePrakash_Helpdesk::help_desk"     resource="MagePrakash_Helpdesk::ticket" sortOrder="120" title="Ticket"/>
+		<add action="mageprakash_helpdesk/status/index"     id="MagePrakash_Helpdesk::mageprakash_helpdesk_status" module="MagePrakash_Helpdesk" parent="MagePrakash_Helpdesk::help_desk"     resource="MagePrakash_Helpdesk::status" sortOrder="130" title="Status"/>
+		<add action="mageprakash_helpdesk/priority/index"   id="MagePrakash_Helpdesk::mageprakash_helpdesk_priority" module="MagePrakash_Helpdesk" parent="MagePrakash_Helpdesk::help_desk"   resource="MagePrakash_Helpdesk::priority" sortOrder="140" title="Priority"/>
 	</menu>
 </config>

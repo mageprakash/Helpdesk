@@ -29,7 +29,7 @@
 		<settings>
 			<submitUrl path="*/*/save"/>
 		</settings>
-		<dataProvider class="MagePrakash\Helpdesk\Model\Status\DataProvider" name="status_form_data_source">
+		<dataProvider class="MagePrakash\Helpdesk\Model\DataProvider\Status" name="status_form_data_source">
 			<settings>
 				<requestFieldName>status_id</requestFieldName>
 				<primaryFieldName>status_id</primaryFieldName>

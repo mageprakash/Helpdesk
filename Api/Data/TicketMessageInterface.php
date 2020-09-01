@@ -17,7 +17,17 @@ interface TicketMessageInterface extends \Magento\Framework\Api\ExtensibleDataIn
     const ENABLED = 'enabled';
     const FILE = 'file';
     const DEPARTMENT_ID = 'department_id';
-
+    const REPLY_BY = 'reply_by';
+    const DEPARTMENT_NAME = 'department_name';
+    const STATUS_NAME = 'status_name';
+    const PRIORITY_LABEL = 'priority_label';
+    const FILENAME = 'filename';
+    const FILEPATH = 'filepath';
+    const FILETYPE = 'filetype';
+    const FILESIZE = 'filesize';
+    const AUTHOR_NAME = 'author_name';
+    const AUTHOR_EMAIL = 'author_email';
+    
     /**
      * Get ticket_message_id
      * @return string|null
@@ -164,6 +174,19 @@ interface TicketMessageInterface extends \Magento\Framework\Api\ExtensibleDataIn
     public function setDepartmentId($departmentId);
 
     /**
+     * Get reply_by
+     * @return string|null
+     */
+    public function getReplyBy();
+
+    /**
+     * Set reply_by
+     * @param string $replyBy
+     * @return \MagePrakash\Helpdesk\Api\Data\TicketMessageInterface
+     */
+    public function setReplyBy($replyBy);    
+
+    /**
      * Get enabled
      * @return string|null
      */
@@ -175,4 +198,121 @@ interface TicketMessageInterface extends \Magento\Framework\Api\ExtensibleDataIn
      * @return \MagePrakash\Helpdesk\Api\Data\TicketMessageInterface
      */
     public function setEnabled($enabled);
+    
+    /**
+     * Get department_name
+     * @return string|null
+     */
+    public function getDepartmentName();
+
+    /**
+     * Set department_name
+     * @param string $departmentName
+     * @return \MagePrakash\Helpdesk\Api\Data\TicketMessageInterface
+     */
+    public function setDepartmentName($departmentName);
+
+    /**
+     * Get status_name
+     * @return string|null
+     */
+    public function getStatusName();
+
+    /**
+     * Set status_name
+     * @param string $statusName
+     * @return \MagePrakash\Helpdesk\Api\Data\TicketMessageInterface
+     */
+    public function setStatusName($statusName);
+
+    /**
+     * Get priority_label
+     * @return string|null
+     */
+    public function getPriorityLabel();
+
+    /**
+     * Set priority_label
+     * @param string $priorityLabel
+     * @return \MagePrakash\Helpdesk\Api\Data\TicketMessageInterface
+     */
+    public function setPriorityLabel($priorityLabel);
+
+    /**
+     * Get filename
+     * @return mixed
+     */
+    public function getFilename();
+
+    /**
+     * Set filename
+     * @param string $filename
+     * @return \MagePrakash\Helpdesk\Api\Data\TicketMessageInterface
+     */
+    public function setFilename($filename);
+
+    /**
+     * Get filepath
+     * @return string|null
+     */
+    public function getFilepath();
+
+    /**
+     * Set filepath
+     * @param string $filepath
+     * @return \MagePrakash\Helpdesk\Api\Data\TicketMessageInterface
+     */
+    public function setFilepath($filepath);
+
+    /**
+     * Get filetype
+     * @return string|null
+     */
+    public function getFiletype();
+
+    /**
+     * Set filetype
+     * @param string $filetype
+     * @return \MagePrakash\Helpdesk\Api\Data\TicketMessageInterface
+     */
+    public function setFiletype($filetype);
+
+    /**
+     * Get filesize
+     * @return string|null
+     */
+    public function getFilesize();
+
+    /**
+     * Set filesize
+     * @param string $filesize
+     * @return \MagePrakash\Helpdesk\Api\Data\TicketMessageInterface
+     */
+    public function setFilesize($filesize);
+
+    /**
+     * Get author_name
+     * @return string|null
+     */
+    public function getAuthorName();
+
+    /**
+     * Set author_name
+     * @param string $authorname
+     * @return \MagePrakash\Helpdesk\Api\Data\TicketMessageInterface
+     */
+    public function setAuthorName($authorname);
+
+    /**
+     * Get author_email
+     * @return string|null
+     */
+    public function getAuthorEmail();
+
+    /**
+     * Set author_email
+     * @param string $authoremail
+     * @return \MagePrakash\Helpdesk\Api\Data\TicketMessageInterface
+     */
+    public function setAuthorEmail($authoremail);
 }

@@ -168,7 +168,6 @@ class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\Ab
     public function addAttachmentToSelect()
     {
         $tableName = $this->getTable('mageprakash_helpdesk_file');
-
         $this->getSelect()->joinLeft(
             $tableName,
             "main_table.ticket_message_id = {$tableName}.ticket_message_id",

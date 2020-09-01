@@ -73,6 +73,34 @@
 				<label translate="true">ID</label>
 			</settings>
 		</column>
+		<column name="department_id">
+			<settings>
+				<filter>text</filter>
+				<sorting>asc</sorting>
+				<label translate="true">Department Id</label>
+			</settings>
+		</column>
+		<column name="user_id">
+			<settings>
+				<filter>text</filter>
+				<sorting>asc</sorting>
+				<label translate="true">User Id</label>
+			</settings>
+		</column>
+		<column name="status_id">
+			<settings>
+				<filter>text</filter>
+				<sorting>asc</sorting>
+				<label translate="true">Status</label>
+			</settings>
+		</column>
+		<column name="priority_id">
+			<settings>
+				<filter>text</filter>
+				<sorting>asc</sorting>
+				<label translate="true">Priority Id</label>
+			</settings>
+		</column>
 		<actionsColumn class="MagePrakash\Helpdesk\Ui\Component\Listing\Column\TicketActions" name="actions">
 			<settings>
 				<indexField>ticket_id</indexField>

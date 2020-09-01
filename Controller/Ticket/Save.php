@@ -5,6 +5,7 @@ namespace MagePrakash\Helpdesk\Controller\Ticket;
 use Magento\Framework\App\RequestInterface;
 use Magento\Framework\Controller\ResultFactory;
 use Magento\Store\Model\StoreManagerInterface;
+use MagePrakash\Helpdesk\Helper\Config;
 
 class Save extends \MagePrakash\Helpdesk\Controller\AbstractAction
 {
@@ -44,11 +45,9 @@ class Save extends \MagePrakash\Helpdesk\Controller\AbstractAction
         \Magento\Customer\Model\Session $customerSession,
         \Magento\Framework\Data\Form\FormKey\Validator $formKeyValidator,
         \MagePrakash\Helpdesk\Model\TicketFactory $ticketFactory,
-        \Magento\Customer\Helper\Session\CurrentCustomer $currentCustomer,
         StoreManagerInterface $storeManager,
         \MagePrakash\Helpdesk\Helper\Config $helperConfig
     ) {
-        $this->currentCustomer  = $currentCustomer;
         $this->formKeyValidator = $formKeyValidator;
         $this->ticketFactory    = $ticketFactory;
         $this->storeManager     = $storeManager;
@@ -61,22 +60,21 @@ class Save extends \MagePrakash\Helpdesk\Controller\AbstractAction
      */
     public function execute()
     {
-
         /** @var \Magento\Framework\Controller\Result\Redirect $resultRedirect */
         $resultRedirect = $this->resultFactory->create(ResultFactory::TYPE_REDIRECT);
+        $customer = $this->customerSession->getCustomer();
 
         if (!$this->getRequest()->isPost()) {
             $resultRedirect->setUrl($this->_redirect->getRefererUrl());
             return $resultRedirect;
         }
 
-
         try {
             $data = $this->getRequest()->getPostValue();
 
-            $data['customer_id'] = $this->currentCustomer->getCustomerId();
-            $data['store_id']    = $this->storeManager->getStore()->getId();
-            $data['status_id']   = $this->helperConfig->getNewStatusTicket(1);
+            $data['customer_id'] = $customer->getId();
+            $data['store_id'] = $this->storeManager->getStore()->getId();
+            $data['status_id'] = $this->helperConfig->getNewStatusTicket();
 
             $model = $this->ticketFactory->create();
             $model->setData($data);
@@ -87,9 +85,10 @@ class Save extends \MagePrakash\Helpdesk\Controller\AbstractAction
             }else{
                 $file = [];
             }
-
+            $model->setReplyBy(Config::TICKET_MESSAGE_CUSTOMER);
+            $model->setAuthorName($customer->getFirstname().' '.$customer->getLastname());
+            $model->setAuthorEmail($customer->getEmail());
             $model->setFile($file);
-
             $model->save();
 
             $this->messageManager->addSuccess(__('Ticket has been saved.'));

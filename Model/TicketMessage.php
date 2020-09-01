@@ -14,6 +14,7 @@ class TicketMessage extends \Magento\Framework\Model\AbstractModel
     protected $ticket_messageDataFactory;
     protected $fileFactory;
     protected $dataObjectHelper;
+    protected $ticketFactory;
 
 
     /**
@@ -33,11 +34,13 @@ class TicketMessage extends \Magento\Framework\Model\AbstractModel
         DataObjectHelper $dataObjectHelper,
         \MagePrakash\Helpdesk\Model\ResourceModel\TicketMessage $resource,
         \MagePrakash\Helpdesk\Model\ResourceModel\TicketMessage\Collection $resourceCollection,
+        \MagePrakash\Helpdesk\Model\TicketFactory $ticketFactory,
         array $data = []
     ) {
         $this->ticket_messageDataFactory = $ticket_messageDataFactory;
         $this->dataObjectHelper = $dataObjectHelper;
         $this->fileFactory = $fileFactory;
+        $this->ticketFactory = $ticketFactory;
         parent::__construct($context, $registry, $resource, $resourceCollection, $data);
     }
 
@@ -48,7 +51,6 @@ class TicketMessage extends \Magento\Framework\Model\AbstractModel
     public function getDataModel()
     {
         $ticket_messageData = $this->getData();
-        
         $ticket_messageDataObject = $this->ticket_messageDataFactory->create();
         $this->dataObjectHelper->populateWithArray(
             $ticket_messageDataObject,
@@ -59,16 +61,10 @@ class TicketMessage extends \Magento\Framework\Model\AbstractModel
         return $ticket_messageDataObject;
     }
 
-   /* public function insertSave()
+    public function getTicket()
     {
-        $ticket = $this->getTicketMessage();
-        if (!$ticket || !$ticket->getTicketId()) {
-            throw new \Exception(__('A balance is needed to save a balance history.'));
-        }
-        $ticket->setEmailMessageId(2);
-        $ticket->setEnabled(1); 
-        $this->_resource->insertTicketMessageData($ticket);
-    }*/
+        return $this->ticketFactory->create()->load($this->getTicketId());
+    }
 
     public function afterSave()
     {
@@ -90,5 +86,9 @@ class TicketMessage extends \Magento\Framework\Model\AbstractModel
                 
             }
         }
+    }
+
+    public function getEmailTemplateIdByTicketId(){
+        
     }
 }

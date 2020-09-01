@@ -6,10 +6,7 @@ use Magento\Store\Model\ScopeInterface;
 
 class Upload
 {
-
-    /**
-     * @var \Magento\MediaStorage\Model\File\UploaderFactory
-     */
+    const HELPDESK_ATTACHMENT_PATH = "Mageprakash/helpdesk/";
     protected $uploaderFactory;
     protected $configHelper;
     protected $fileInfo;
@@ -35,7 +32,7 @@ class Upload
     public function uploadFileAndGetInfo($uploadData)
     {
 
-        $target = $this->_mediaDirectory->getAbsolutePath('Mageprakash/helpdesk/');
+        $target = $this->_mediaDirectory->getAbsolutePath(self::HELPDESK_ATTACHMENT_PATH);
         //$varDirectoryPath = $this->fileInfo->getBaseDir();
 
         $allowedExtensions = $this->configHelper->getAllowedFileExtensions();

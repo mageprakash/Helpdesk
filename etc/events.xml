@@ -4,6 +4,7 @@
         <observer name="ticket_created_customer_notification" instance="MagePrakash\Helpdesk\Observer\Ticket\CustomerNotification" />
     </event>
     <event name="mageprakash_helpdesk_ticket_message_save_after">
+    	<observer name="admin_notification" instance="MagePrakash\Helpdesk\Observer\TicketMessage\AdminNotification" />
         <observer name="customer_notification" instance="MagePrakash\Helpdesk\Observer\TicketMessage\CustomerNotification" />
     </event>
 </config>

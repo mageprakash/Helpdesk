@@ -19,6 +19,7 @@ class Ticket extends \Magento\Framework\Model\AbstractModel
     protected $ticketMessageCollectionFactory;
     protected $departmentFactory;
     protected $customerRepositoryFactory;
+    protected $dateTime;
     /**
      * @param \Magento\Framework\Model\Context $context
      * @param \Magento\Framework\Registry $registry
@@ -39,6 +40,7 @@ class Ticket extends \Magento\Framework\Model\AbstractModel
         \MagePrakash\Helpdesk\Model\ResourceModel\Ticket\Collection $resourceCollection,
         \MagePrakash\Helpdesk\Model\ResourceModel\TicketMessage\CollectionFactory $ticketMessageCollectionFactory,
         \Magento\Customer\Api\CustomerRepositoryInterfaceFactory $customerRepositoryFactory,
+        \Magento\Framework\Stdlib\DateTime\DateTime $dateTime,
         array $data = []
     ) {
         $this->ticketMessageCollectionFactory = $ticketMessageCollectionFactory;        
@@ -47,6 +49,7 @@ class Ticket extends \Magento\Framework\Model\AbstractModel
         $this->dataObjectHelper = $dataObjectHelper;
         $this->departmentFactory = $departmentFactory;
         $this->customerRepositoryFactory = $customerRepositoryFactory;
+        $this->dateTime = $dateTime;
         parent::__construct($context, $registry, $resource, $resourceCollection, $data);
     }
 
@@ -97,6 +100,18 @@ class Ticket extends \Magento\Framework\Model\AbstractModel
         return $this->getCustomerId() ? $this->customerRepositoryFactory->create()->getById(
             $this->getCustomerId()
         ) : false;
+    }
+
+    public function beforeSave(){
+        parent::beforeSave();
+        
+        if ($this->isObjectNew()) {
+            $this->setData('created_at', $this->dateTime->gmtDate());
+        }
+        
+        $this->setData('modified_at', $this->dateTime->gmtDate());
+
+        return parent::beforeSave();
     }
 
     public function afterSave()

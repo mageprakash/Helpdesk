@@ -36,7 +36,7 @@ abstract class AbstractNotification implements \Magento\Framework\Event\Observer
      * @var string
      */
     protected $mailMessageId;
-
+    protected $backendUrl;
     /**
      * @param \Magento\Framework\Mail\Template\TransportBuilder $transportBuilder
      * @param \Magento\Framework\Translate\Inline\StateInterface $inlineTranslation
@@ -49,12 +49,14 @@ abstract class AbstractNotification implements \Magento\Framework\Event\Observer
         \Magento\Framework\Translate\Inline\StateInterface $inlineTranslation,
         \Magento\Store\Model\StoreManagerInterface $storeManager,
         \MagePrakash\Helpdesk\Helper\Config $configHelper,
+        \Magento\Backend\Model\UrlInterface $backendUrl,
         \Psr\Log\LoggerInterface $logger
     ) {
         $this->transportBuilder = $transportBuilder;
         $this->inlineTranslation = $inlineTranslation;
         $this->storeManager = $storeManager;
         $this->configHelper = $configHelper;
+        $this->backendUrl = $backendUrl;
         $this->logger = $logger;
     }
 

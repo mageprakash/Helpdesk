@@ -27,7 +27,19 @@
                     <label>Allow upload only attachments with extensions</label>
                 </field>
 
-                
+                <field id="auto_close" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Auto Close Ticket</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+
+                <field id="auto_close_days" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Auto Close Ticket Days</label>
+                </field>
+
+                <field id="auto_close_status_skip" translate="label" type="multiselect" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Auto Close Ticket Status Skip</label>
+                    <source_model>MagePrakash\Helpdesk\Model\Config\Source\TicketStatus</source_model>
+                </field>
             </group>
            
             <group id="mail" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">

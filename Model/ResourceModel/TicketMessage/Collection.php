@@ -46,39 +46,12 @@ class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\Ab
         );
     }
 
-    /**
-     * Convert  collection objects to a flat array
-     *
-     * @return array
-     */
-    public function toFlatArray($customAttributes = [])
-    {
-        $flatArray = [];
-
-        foreach ($this as $item) {
-            $flatArrayItem = $this->extensibleDataObjectConverter->toFlatArray(
-                $item,
-                [],
-                \MagePrakash\Helpdesk\Api\Data\TicketMessageInterface::class
-            );
-
-            foreach ($customAttributes as $customAttributeKey) {
-                $customAttributeValue = $item->getData($customAttributeKey);
-                if (!empty($customAttributeValue) && !isset($flatArrayItem[$customAttributeKey])) {
-                    $flatArrayItem[$customAttributeKey] = $customAttributeValue;
-                }
-            }
-            // $flatArray[$item->getMessageId()] = $flatArrayItem;
-            $flatArray[] = $flatArrayItem;
-        }
-
-        return $flatArray;
-    }
+    
 
     /**
      * Add customer name expression to the collection
      */
-    public function addCustomerIdToSelect()
+    public function addTicketSelect()
     {
         $this->getSelect()->joinLeft(
             ['mageprakash_helpdesk_ticket' => $this->getTable('mageprakash_helpdesk_ticket')],
@@ -198,46 +171,4 @@ class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\Ab
         return $this;
     }
 
-    /**
-     * Add filter by enabled
-     *
-     * @param bool $enabled
-     * @return $this
-     */
-    public function addFilterByEnabled($enabled = true)
-    {
-        $enabled = (bool) $enabled;
-
-        $this->addFilter('main_table.enabled', $enabled);
-
-        return $this;
-    }
-
-    /**
-     *
-     * @param string $file
-     */
-    public function addFilterByFile($file)
-    {
-        $this->getSelect()->where("main_table.file LIKE ?", "%{$file}%");
-        return $this;
-    }
-
-    /**
-     *
-     */
-    public function addFilterUserIdIsNotNull()
-    {
-        $this->getSelect()->where("main_table.user_id IS NOT NULL");
-        return $this;
-    }
-
-    /**
-     *
-     */
-    public function addFilterEmailMessageIdIsNotNull()
-    {
-        $this->getSelect()->where("main_table.email_message_id IS NOT NULL AND main_table.email_message_id <> ''");
-        return $this;
-    }
 }

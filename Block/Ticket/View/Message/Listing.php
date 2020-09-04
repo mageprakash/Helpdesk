@@ -24,7 +24,6 @@ class Listing extends \MagePrakash\Helpdesk\Block\Ticket\AbstractBlock
             ->addDepartmentNameToSelect()
             ->addStatusNameToSelect()
             ->addPriorityToSelect()
-            ->addFilterByEnabled()
             ->addAttachmentToSelect()
             ->setOrder('main_table.ticket_message_id', $sortOrder);
 

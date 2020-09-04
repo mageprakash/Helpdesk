@@ -129,13 +129,12 @@ class TicketMessageRepository implements TicketMessageRepositoryInterface
         $ticketMessageCollection = $this->ticketMessageCollectionFactory->create();
         $ticketMessageCollection->addDepartmentNameToSelect()
             ->addFieldToFilter('main_table.ticket_id',$ticketId)
-            ->addCustomerIdToSelect()
+            ->addTicketSelect()
             ->addCustomerEmailToSelect()
             ->addAdminUserEmailToSelect()
             ->addEmailToSelect()
             ->addStatusNameToSelect()
             ->addPriorityToSelect()
-            ->addFilterByEnabled()
             ->addAttachmentToSelect()
             ->setOrder('main_table.ticket_message_id', \Magento\Framework\Data\Collection::SORT_ORDER_DESC);
 
@@ -163,14 +162,6 @@ class TicketMessageRepository implements TicketMessageRepositoryInterface
         $searchResults = $this->searchResultsFactory->create();
         $searchResults->setSearchCriteria($criteria);
         
-        $collection
-            ->addDepartmentNameToSelect()
-            ->addStatusNameToSelect()
-            ->addPriorityToSelect()
-            ->addAttachmentToSelect()
-            ->addFilterByEnabled(); 
-
-        $collection->getSelect()->group('ticket_message_id');
         $items = [];
         foreach ($collection as $model) {
             $items[] = $model->getDataModel();

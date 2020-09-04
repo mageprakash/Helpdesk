@@ -75,7 +75,7 @@ class Ticket extends \Magento\Framework\Model\AbstractModel
     {
         $ticketMessageCollection = $this->ticketMessageCollectionFactory->create();
         $ticketMessageCollection->addFieldToFilter('main_table.ticket_id', $this->getTicketId());
-        $ticketMessageCollection->addCustomerIdToSelect();
+        $ticketMessageCollection->addTicketSelect();
         $ticketMessageCollection->addCustomerEmailToSelect();
         $ticketMessageCollection->addAdminUserEmailToSelect();
         $ticketMessageCollection->addEmailToSelect();
@@ -126,7 +126,6 @@ class Ticket extends \Magento\Framework\Model\AbstractModel
         {
             $ticketMessageFactory->addData([
                 'ticket_id'         => $ticketMessage->getTicketId(),
-                'email_message_id'  => 1,
                 'created_at'        => date('Y-m-d H:i:s'),
                 'text'              => $ticketMessage->getText(),
                 'file'              => $ticketMessage->getFile(),
@@ -134,7 +133,6 @@ class Ticket extends \Magento\Framework\Model\AbstractModel
                 'status_id'         => $ticketMessage->getStatusId(),
                 'priority_id'       => $ticketMessage->getPriorityId(),
                 'department_id'     => $ticketMessage->getDepartmentId(),
-                'enabled'           => 1,
                 'reply_by'          => $ticketMessage->getReplyBy(),
                 'author_name'       => $ticketMessage->getAuthorName(), 
                 'author_email'      => $ticketMessage->getAuthorEmail()

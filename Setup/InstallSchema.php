@@ -498,14 +498,25 @@ class InstallSchema implements InstallSchemaInterface
         );
 
         $table_mageprakash_helpdesk_ticket_message->addColumn(
-            'enabled',
+            'is_view_by_customer',
             \Magento\Framework\DB\Ddl\Table::TYPE_SMALLINT,
             null,
             [
                 'nullable'  => false,
-                'default'  => 1
+                'default'  => 0
             ],
-            'enabled'
+            'is_view_by_customer'
+        );
+
+        $table_mageprakash_helpdesk_ticket_message->addColumn(
+            'is_view_by_adminuser',
+            \Magento\Framework\DB\Ddl\Table::TYPE_SMALLINT,
+            null,
+            [
+                'nullable'  => false,
+                'default'  => 0
+            ],
+            'is_view_by_adminuser'
         );
 
         $table_mageprakash_helpdesk_ticket_message->addIndex(

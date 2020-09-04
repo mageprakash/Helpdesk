@@ -21,6 +21,10 @@
 	<dataSource component="Magento_Ui/js/grid/provider" name="mageprakash_helpdesk_ticket_listing_data_source">
 		<settings>
 			<updateUrl path="mui/index/render"/>
+			<storageConfig>
+                <param name="cacheRequests" xsi:type="boolean">false</param>
+                <param name="indexField" xsi:type="string">ticket_id</param>
+            </storageConfig>
 		</settings>
 		<aclResource>MagePrakash_Helpdesk::ticket</aclResource>
 		<dataProvider class="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider" name="mageprakash_helpdesk_ticket_listing_data_source">
@@ -41,15 +45,6 @@
 	</listingToolbar>
 	<columns name="mageprakash_helpdesk_ticket_columns">
 		<settings>
-			<editorConfig>
-				<param name="selectProvider" xsi:type="string">mageprakash_helpdesk_ticket_listing.mageprakash_helpdesk_ticket_listing.mageprakash_helpdesk_ticket_columns.ids</param>
-				<param name="enabled" xsi:type="boolean">true</param>
-				<param name="indexField" xsi:type="string">ticket_id</param>
-				<param name="clientConfig" xsi:type="array">
-					<item name="saveUrl" path="mageprakash_helpdesk/ticket/inlineEdit" xsi:type="url"/>
-					<item name="validateBeforeSave" xsi:type="boolean">false</item>
-				</param>
-			</editorConfig>
 			<childDefaults>
 				<param name="fieldAction" xsi:type="array">
 					<item name="provider" xsi:type="string">mageprakash_helpdesk_ticket_listing.mageprakash_helpdesk_ticket_listing.mageprakash_helpdesk_ticket_columns_editor</item>
@@ -66,46 +61,63 @@
 				<indexField>ticket_id</indexField>
 			</settings>
 		</selectionsColumn>
-		<column name="ticket_id">
+		<column name="ticket_id" sortOrder="10">
 			<settings>
 				<filter>text</filter>
 				<sorting>asc</sorting>
 				<label translate="true">ID</label>
 			</settings>
 		</column>
-		<column name="department_id">
+		<column name="department_name" sortOrder="15">
 			<settings>
 				<filter>text</filter>
 				<sorting>asc</sorting>
-				<label translate="true">Department Id</label>
+				<label translate="true">Department</label>
 			</settings>
 		</column>
-		<column name="user_id">
+		<column name="customer_full_name" sortOrder="20">
 			<settings>
 				<filter>text</filter>
 				<sorting>asc</sorting>
-				<label translate="true">User Id</label>
+				<label translate="true">Customer</label>
 			</settings>
 		</column>
-		<column name="status_id">
+		<column name="admin_user_full_name" sortOrder="30">
+			<settings>
+				<filter>text</filter>
+				<sorting>asc</sorting>
+				<label translate="true">Admin User</label>
+			</settings>
+		</column>
+		 <column name="status_name" sortOrder="40">
 			<settings>
 				<filter>text</filter>
 				<sorting>asc</sorting>
 				<label translate="true">Status</label>
 			</settings>
 		</column>
-		<column name="priority_id">
+		<column name="priority_name" sortOrder="50">
 			<settings>
 				<filter>text</filter>
 				<sorting>asc</sorting>
-				<label translate="true">Priority Id</label>
+				<label translate="true">Priority</label>
 			</settings>
 		</column>
+		<column name="created_at" class="Magento\Ui\Component\Listing\Columns\Date">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">dateRange</item>
+                    <item name="sorting" xsi:type="string">desc</item>
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/date</item>
+                    <item name="dataType" xsi:type="string">date</item>
+                    <item name="label" xsi:type="string" translate="true">Created At</item>
+                    <item name="sortOrder" xsi:type="number">60</item>
+                </item>
+            </argument>
+        </column>
 		<actionsColumn class="MagePrakash\Helpdesk\Ui\Component\Listing\Column\TicketActions" name="actions">
 			<settings>
 				<indexField>ticket_id</indexField>
-				<resizeEnabled>false</resizeEnabled>
-				<resizeDefaultWidth>107</resizeDefaultWidth>
 			</settings>
 		</actionsColumn>
 	</columns>

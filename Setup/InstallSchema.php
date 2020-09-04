@@ -23,7 +23,6 @@ class InstallSchema implements InstallSchemaInterface
         $this->statusTable($setup);
         $this->priority($setup);
         $this->departmentUserTable($setup);
-        /*$this->reason($setup);*/
         $this->ticketTable($setup);       
         $this->ticketMessageTable($setup);
         $this->fileTable($setup);
@@ -59,28 +58,36 @@ class InstallSchema implements InstallSchemaInterface
             'name',
             \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
             null,
-            [],
+            [
+                'nullable'  => false                
+            ],
             'name'
         );
          $table_mageprakash_helpdesk_file->addColumn(
             'path',
             \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
             null,
-            [],
+            [
+                 'nullable'  => false
+            ],
             'path'
         );
         $table_mageprakash_helpdesk_file->addColumn(
             'size',
             \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
             null,
-            [],
+            [
+                'nullable'  => false
+            ],
             'size'
         );
         $table_mageprakash_helpdesk_file->addColumn(
             'type',
             \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
             null,
-            [],
+            [
+                 'nullable'  => false
+            ],
             'type'
         );
 
@@ -133,8 +140,7 @@ class InstallSchema implements InstallSchemaInterface
             \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
             255,
             [ 
-                'nullable'  => true,
-                'default'  => null,
+                'nullable'  => false
             ],
             'name'
         );
@@ -150,25 +156,14 @@ class InstallSchema implements InstallSchemaInterface
             'store_id'
         );
 
-        $table_mageprakash_helpdesk_department->addColumn(
-            'default_user_id',
-            \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
-            null,
-            [
-                'unsigned'  => true,
-                'nullable'  => true,
-                'default'  => null,
-            ],
-            'default_user_id'
-        );
-
+      
         $table_mageprakash_helpdesk_department->addColumn(
             'created_at',
             \Magento\Framework\DB\Ddl\Table::TYPE_TIMESTAMP,
             null,
             [
+                'default'   => "CURRENT_TIMESTAMP",
                 'nullable'  => false,
-                'default'  => null,
             ],
             'created_at'
         );
@@ -177,7 +172,9 @@ class InstallSchema implements InstallSchemaInterface
             'sender',
             \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
             255,
-            [],
+            [
+                'nullable'  => false
+            ],
             'sender'
         );
 
@@ -185,7 +182,9 @@ class InstallSchema implements InstallSchemaInterface
             'email_template_new',
             \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
             150,
-            [],
+            [
+                'nullable'  => false
+            ],
             'email_template_new'
         );
 
@@ -193,7 +192,9 @@ class InstallSchema implements InstallSchemaInterface
             'email_template_answer',
             \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
             150,
-            [],
+            [
+                'nullable'  => false
+            ],
             'email_template_answer'
         );
 
@@ -201,7 +202,9 @@ class InstallSchema implements InstallSchemaInterface
             'email_template_admin',
             \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
             150,
-            [],
+            [
+                'nullable'  => false
+            ],
             'email_template_admin'
         );
 
@@ -316,7 +319,7 @@ class InstallSchema implements InstallSchemaInterface
             \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
             255,
             [
-                'nullable'  => true,
+                'nullable'  => false,
                 'default'  => null,
             ],
             'name'
@@ -327,7 +330,8 @@ class InstallSchema implements InstallSchemaInterface
             \Magento\Framework\DB\Ddl\Table::TYPE_SMALLINT,
             null,
             [
-                'default'  => 0
+                'default'  => 0,
+                'nullable' => false
             ],
             'status'
         );
@@ -393,8 +397,8 @@ class InstallSchema implements InstallSchemaInterface
             'created_at',
             \Magento\Framework\DB\Ddl\Table::TYPE_TIMESTAMP,
             null,
-            [   'nullable'  => true,
-                'default'  => null
+            [   'nullable'  => false,
+                'default'   => "CURRENT_TIMESTAMP"
             ],
             'created_at'
         );
@@ -403,7 +407,9 @@ class InstallSchema implements InstallSchemaInterface
             'text',
             \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
             null,
-            [],
+            [
+                'nullable'  => false
+            ],
             'text'
         );
 
@@ -459,6 +465,17 @@ class InstallSchema implements InstallSchemaInterface
             255,
             ['nullable'  => false],
             'number'
+        );
+
+        $table_mageprakash_helpdesk_ticket_message->addColumn(
+            'department_id',
+            \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
+            10,
+            [
+                'unsigned'  => true,
+                'nullable'  => false
+            ],
+            'department_id'
         );
 
         $table_mageprakash_helpdesk_ticket_message->addColumn(
@@ -612,7 +629,7 @@ class InstallSchema implements InstallSchemaInterface
             \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
             255,
             [
-                'nullable'  => true,
+                'nullable'  => false,
                 'default'  => null
             ],
             'title'
@@ -635,8 +652,8 @@ class InstallSchema implements InstallSchemaInterface
             \Magento\Framework\DB\Ddl\Table::TYPE_TIMESTAMP,
             null,
             [
-                'nullable'  => true,
-                'default'  => null
+                'nullable'  => false,
+                'default'   => "CURRENT_TIMESTAMP"
             ],
             'created_at'
         );
@@ -646,8 +663,8 @@ class InstallSchema implements InstallSchemaInterface
             \Magento\Framework\DB\Ddl\Table::TYPE_TIMESTAMP,
             null,
             [
-                'nullable'  => true,
-                'default'  => null,
+                'nullable'  => false,
+                'default'   => "CURRENT_TIMESTAMP"
             ],
             'modified_at'
         );
@@ -674,17 +691,6 @@ class InstallSchema implements InstallSchemaInterface
             'user_id'
         );
 
-        /*$table_mageprakash_helpdesk_ticket->addColumn(
-            'reason_id',
-            \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
-            10,
-            [   'unsigned'  => true,
-                'nullable'  => true,
-                'default'  => null
-            ],
-            'reason_id'
-        );
-*/
         $table_mageprakash_helpdesk_ticket->addColumn(
             'store_id',
             \Magento\Framework\DB\Ddl\Table::TYPE_SMALLINT,
@@ -716,18 +722,6 @@ class InstallSchema implements InstallSchemaInterface
             'order_id'
         );
 
-        $table_mageprakash_helpdesk_ticket->addColumn(
-            'rate',
-            \Magento\Framework\DB\Ddl\Table::TYPE_SMALLINT,
-            null,
-            [
-                'unsigned'  => true,
-                'nullable'  => false,
-                'default'  => 0
-            ],
-            'rate'
-        );
-
         $table_mageprakash_helpdesk_ticket->addIndex(
             $installer->getIdxName('mageprakash_helpdesk_ticket', ['department_id']),
             ['department_id']
@@ -746,11 +740,6 @@ class InstallSchema implements InstallSchemaInterface
             $installer->getIdxName('mageprakash_helpdesk_ticket', ['user_id']),
             ['user_id']
         );
-
-        /*$table_mageprakash_helpdesk_ticket->addIndex(
-            $installer->getIdxName('mageprakash_helpdesk_ticket', ['reason_id']),
-            ['reason_id']
-        );*/
 
         $table_mageprakash_helpdesk_ticket->addIndex(
             $installer->getIdxName('mageprakash_helpdesk_ticket', ['status_id']),
@@ -796,14 +785,6 @@ class InstallSchema implements InstallSchemaInterface
             Table::ACTION_SET_NULL
         );
 
-        /*$table_mageprakash_helpdesk_ticket->addForeignKey(
-            $installer->getFkName('mageprakash_helpdesk_ticket', 'reason_id', 'mageprakash_helpdesk_reason', 'reason_id'),
-            'reason_id',
-            $installer->getTable('mageprakash_helpdesk_reason'),
-            'reason_id',
-            Table::ACTION_NO_ACTION
-        );*/
-        
 
         $table_mageprakash_helpdesk_ticket->addForeignKey(
             $installer->getFkName('mageprakash_helpdesk_ticket', 'status_id', 'mageprakash_helpdesk_status', 'status_id'),
@@ -840,7 +821,7 @@ class InstallSchema implements InstallSchemaInterface
             'name',
             \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
             255,
-            [],
+            [ 'nullable'  => false],
             'name'
         );
 
@@ -848,7 +829,7 @@ class InstallSchema implements InstallSchemaInterface
             'status',
             \Magento\Framework\DB\Ddl\Table::TYPE_SMALLINT,
             null,
-            [],
+            [ 'nullable'  => false],
             'status'
         );
 
@@ -861,44 +842,5 @@ class InstallSchema implements InstallSchemaInterface
         );
 
         $setup->getConnection()->createTable($table_mageprakash_helpdesk_priority);
-    }
-
-    public function reason($setup){
-        
-        $table_mageprakash_helpdesk_reason = $setup->getConnection()->newTable($setup->getTable('mageprakash_helpdesk_reason'));
-
-        $table_mageprakash_helpdesk_reason->addColumn(
-            'reason_id',
-            \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
-            null,
-            ['identity' => true,'nullable' => false,'primary' => true,'unsigned' => true,],
-            'Entity ID'
-        );
-
-        $table_mageprakash_helpdesk_reason->addColumn(
-            'name',
-            \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
-            null,
-            [],
-            'name'
-        );
-
-        $table_mageprakash_helpdesk_reason->addColumn(
-            'status',
-            \Magento\Framework\DB\Ddl\Table::TYPE_SMALLINT,
-            null,
-            [],
-            'status'
-        );
-
-        $table_mageprakash_helpdesk_reason->addColumn(
-            'sort_order',
-            \Magento\Framework\DB\Ddl\Table::TYPE_SMALLINT,
-            null,
-            [],
-            'sort_order'
-        );
-
-        $setup->getConnection()->createTable($table_mageprakash_helpdesk_reason);
     }
 }

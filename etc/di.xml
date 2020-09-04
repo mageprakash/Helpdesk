@@ -41,12 +41,21 @@
 			<argument name="resourceModel" xsi:type="string">MagePrakash\Helpdesk\Model\ResourceModel\Status\Collection</argument>
 		</arguments>
 	</virtualType>
-	<virtualType name="MagePrakash\Helpdesk\Model\ResourceModel\Ticket\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+	<!-- <virtualType name="MagePrakash\Helpdesk\Model\ResourceModel\Ticket\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
 		<arguments>
 			<argument name="mainTable" xsi:type="string">mageprakash_helpdesk_ticket</argument>
 			<argument name="resourceModel" xsi:type="string">MagePrakash\Helpdesk\Model\ResourceModel\Ticket\Collection</argument>
 		</arguments>
-	</virtualType>
+	</virtualType> -->
+
+	<type  name="MagePrakash\Helpdesk\Model\ResourceModel\Ticket\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">mageprakash_helpdesk_ticket</argument>
+            <argument name="resourceModel" xsi:type="string">MagePrakash\Helpdesk\Model\ResourceModel\Ticket</argument>
+            <argument name="eventPrefix" xsi:type="string">mageprakash_helpdesk_ticket_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">mageprakash_helpdesk_ticket_records_collection</argument>
+        </arguments>
+    </type>
 	<virtualType name="MagePrakash\Helpdesk\Model\ResourceModel\Priority\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
 		<arguments>
 			<argument name="mainTable" xsi:type="string">mageprakash_helpdesk_priority</argument>

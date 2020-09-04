@@ -21,6 +21,10 @@
 	<dataSource component="Magento_Ui/js/grid/provider" name="mageprakash_helpdesk_status_listing_data_source">
 		<settings>
 			<updateUrl path="mui/index/render"/>
+			<storageConfig>
+                <param name="cacheRequests" xsi:type="boolean">false</param>
+                <param name="indexField" xsi:type="string">status_id</param>
+            </storageConfig>
 		</settings>
 		<aclResource>MagePrakash_Helpdesk::status</aclResource>
 		<dataProvider class="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider" name="mageprakash_helpdesk_status_listing_data_source">
@@ -41,15 +45,6 @@
 	</listingToolbar>
 	<columns name="mageprakash_helpdesk_status_columns">
 		<settings>
-			<editorConfig>
-				<param name="selectProvider" xsi:type="string">mageprakash_helpdesk_status_listing.mageprakash_helpdesk_status_listing.mageprakash_helpdesk_status_columns.ids</param>
-				<param name="enabled" xsi:type="boolean">true</param>
-				<param name="indexField" xsi:type="string">status_id</param>
-				<param name="clientConfig" xsi:type="array">
-					<item name="saveUrl" path="mageprakash_helpdesk/status/inlineEdit" xsi:type="url"/>
-					<item name="validateBeforeSave" xsi:type="boolean">false</item>
-				</param>
-			</editorConfig>
 			<childDefaults>
 				<param name="fieldAction" xsi:type="array">
 					<item name="provider" xsi:type="string">mageprakash_helpdesk_status_listing.mageprakash_helpdesk_status_listing.mageprakash_helpdesk_status_columns_editor</item>

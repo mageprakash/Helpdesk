@@ -13,7 +13,7 @@ class Department extends \Magento\Framework\Model\AbstractModel
     protected $_eventPrefix = 'mageprakash_helpdesk_department';
     protected $departmentDataFactory;
     protected $dataObjectHelper;
-
+    protected $dateTime;
     /**
      * @param \Magento\Framework\Model\Context $context
      * @param \Magento\Framework\Registry $registry
@@ -29,11 +29,17 @@ class Department extends \Magento\Framework\Model\AbstractModel
         DataObjectHelper $dataObjectHelper,
         \MagePrakash\Helpdesk\Model\ResourceModel\Department $resource,
         \MagePrakash\Helpdesk\Model\ResourceModel\Department\Collection $resourceCollection,
+        \Magento\Framework\Stdlib\DateTime\DateTime $dateTime,
         array $data = []
     ) {
         $this->dataObjectHelper = $dataObjectHelper;
+        $this->dateTime = $dateTime;        
         parent::__construct($context, $registry, $resource, $resourceCollection, $data);
     }
 
-
+    public function beforeSave(){
+        parent::beforeSave();
+        $this->setData('created_at', $this->dateTime->gmtDate());
+        return parent::beforeSave();
+    }
 }

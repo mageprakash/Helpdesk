@@ -38,8 +38,8 @@ class View extends \MagePrakash\Helpdesk\Controller\AbstractAction
      */
     public function execute()
     {
-        $number = $this->getRequest()->getParam('ticket_id');
-        if (!$number) {
+        $ticketId = $this->getRequest()->getParam('ticket_id');
+        if (!$ticketId) {
             /** @var \Magento\Framework\Controller\Result\Forward $resultForward */
             $resultForward = $this->resultForwardFactory->create();
             return $resultForward->forward('noroute');
@@ -49,7 +49,7 @@ class View extends \MagePrakash\Helpdesk\Controller\AbstractAction
             ->addDepartmentNameToSelect()
             ->addStatusNameToSelect()
             ->addPriorityToSelect()
-            ->addFieldToFilter('ticket_id',['eq' => $number])           
+            ->addFieldToFilter('ticket_id',['eq' => $ticketId])           
             ->getFirstItem();
             
        
